@@ -1,6 +1,12 @@
 import axios from "axios";
 
-const API = axios.create({baseURL:'http://localhost:5000'});
+const API = axios.create({
+    baseURL:'http://localhost:5000',
+    timeout: 1000 * 30,
+    validateStatus: (status) => {
+        return status >= 200 && status < 500
+      }
+});
 
 API.interceptors.request.use((req)=>{
     if(localStorage.getItem('Profile'))
@@ -23,3 +29,7 @@ export const updateVote = (id,value,userId) => API.patch(`/questions/vote/${id}`
 
 export const postAnswer = (id,noOfAnswer,answerBody,userAnswered,userId) => API.patch(`/answer/post/${id}`,{id,noOfAnswer,answerBody,userAnswered,userId});
 export const deleteAnswer = (id,answerId,noOfAnswer) => API.patch(`/answer/delete/${id}`,{answerId,noOfAnswer});
+
+
+export const askchatbot = (userId,question) => API.post('/chatbot/askQuestion',{userId,question});
+export const deletebotQuestion = (userId) =>API.patch('/chatbot/deleteQuestions',{userId});

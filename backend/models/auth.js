@@ -1,4 +1,4 @@
-const {mongoose} = require('mongoose');
+const { mongoose } = require('mongoose');
 const { Schema } = mongoose
 
 const userSchema = new Schema({
@@ -16,8 +16,19 @@ const userSchema = new Schema({
     },
     about: { type: String },
     tags: { type: [String] },
-    joinedOn: { type: Date, default: Date.now }
+    joinedOn: { type: Date, default: Date.now },
+    chatbot: [{
+        question: String,
+        answer: String
+    }],
+    otp: {
+        type: String
+    },
+    verified: {
+        type: Boolean,
+        default: false
+    }
 })
 
-const user = mongoose.model("User",userSchema)
+const user = mongoose.model("User", userSchema);
 module.exports = user;

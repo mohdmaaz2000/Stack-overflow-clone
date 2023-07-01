@@ -5,7 +5,7 @@ const auth = (req,res,next)=>{
         let token = req.headers.Authorization;
         if(!token)
         {
-            res.status(401).json({error:"Please enter the valid token"});
+            res.status(401).json({error:true,message:"Please enter the valid token"});
         }
         token = token.split(' ')[1];
         let decodeData = jwt.verify(token,process.env.JWT_SECRET);
@@ -18,4 +18,3 @@ const auth = (req,res,next)=>{
 }
 
 module.exports = auth;
-;

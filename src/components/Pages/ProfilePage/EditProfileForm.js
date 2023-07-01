@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 
 const EditProfileForm = (props) => {
     const {currentUser,setSwitch} = props;
-    const [name,setName] = useState(currentUser?.result.name);
-    const [about,setAbout] = useState(currentUser?.result.about);
+    const [name,setName] = useState(currentUser?.name);
+    const [about,setAbout] = useState(currentUser?.about);
     const [tags,setTags] = useState('');
     const dispatch = useDispatch();
 
@@ -13,10 +13,10 @@ const EditProfileForm = (props) => {
       e.preventDefault();
       if(tags === '')
       {
-        dispatch(updateUser(currentUser?.result?._id,{name,about,tags:currentUser?.result?.tags}));
+        dispatch(updateUser(currentUser?._id,{name,about,tags:currentUser?.tags}));
       }
       else{
-        dispatch(updateUser(currentUser?.result?._id,{name,about,tags}));
+        dispatch(updateUser(currentUser?._id,{name,about,tags}));
       }
       setSwitch(false);
       alert("Updated Successfully");

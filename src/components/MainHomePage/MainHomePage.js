@@ -6,11 +6,11 @@ import { useSelector } from 'react-redux';
 import Questions from './QuestionsList';
 import './MainHomePage.css'
 const MainHomePage = () => {
-  let user = 1;
+  let user = useSelector((state)=>state.currentUserReducer);
   const navigate = useNavigate();
   const location = useLocation();
   const questionList = useSelector(state=>state.questionReducer);
-  // console.log(questionList);
+
   
   const handleClick = ()=>{
     if(user === null)

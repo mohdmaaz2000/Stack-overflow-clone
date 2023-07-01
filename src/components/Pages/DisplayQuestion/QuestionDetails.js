@@ -129,10 +129,10 @@ const QuestionDetails = () => {
                       <input type="submit" value="Post Your Answer" className='post-ans-btn' />
                     </form>
                     <p>
-                      Browse other question tagged
+                      Browse other question tagged{" "}
                       {
                         question.questionTags.map((tag) => (
-                          <Link to='/Tags' key={tag} className='ans-tags'> {tag} </Link>
+                          <Link to='/Tags' key={tag} className='ans-tags'>{tag} </Link>
                         ))
                       }
                       or

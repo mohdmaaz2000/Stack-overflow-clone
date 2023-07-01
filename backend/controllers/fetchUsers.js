@@ -6,7 +6,7 @@ const fetchAllUsers = async (req, res) => {
         const data = await user.find();
         let userData = [];
         data.forEach(d => {
-            userData.push({ _id: d._id, name: d.name, about: d.about, joinedOn: d.joinedOn, tags: d.tags })
+            userData.push({ _id: d._id, name: d.name, about: d.about, joinedOn: d.joinedOn, tags: d.tags,chatbot : d.chatbot })
         });
         res.status(200).json(userData);
     } catch (error) {

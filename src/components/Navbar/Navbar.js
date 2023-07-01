@@ -37,8 +37,8 @@ const Navbar = () => {
         <Link to="/" className='nav-item nav-logo'>
           <img src={logo} alt="logo" width="150" />
         </Link>
+        <Link to="/chatbot" className='nav-item nav-btn'>Ask chatbot</Link>
         <Link to="/" className='nav-item nav-btn'>About</Link>
-        <Link to="/" className='nav-item nav-btn'>Products</Link>
         <Link to="/" className='nav-item nav-btn'>For Teams</Link>
 
         <form >
@@ -50,7 +50,7 @@ const Navbar = () => {
           <Link to='/auth' className='nav-item nav-links'>Login</Link>
           :
           <>
-            <Avatar py="7px" px="10px" bgColor='#009dff' radius='48%' color='white'><Link to={`/users/${User?.result._id}`} style={{ textDecoration: 'none', color: 'white' }}>{User?.result.name.charAt(0).toUpperCase()}</Link></Avatar>
+            <Avatar py="7px" px="10px" bgColor='#009dff' radius='48%' color='white'><Link to={`/users/${User?.result?._id}`} style={{ textDecoration: 'none', color: 'white' }}>{User?.result?.name.charAt(0).toUpperCase()}</Link></Avatar>
             <button className='nav-item nav-links' onClick={handleLogOut}>Log Out</button>
           </>
         }

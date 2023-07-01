@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
 
-
 import Avatar from '../../Avatar/Avatar'
 import { deleteAnswer } from '../../../actions/question'
+
 const DisplayAnswer = (props) => {
     const {question} = props;
     const dispatch = useDispatch();

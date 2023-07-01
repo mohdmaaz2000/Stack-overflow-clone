@@ -11,7 +11,8 @@ import DisplayQuestion from '../Pages/DisplayQuestion/DisplayQuestion';
 import Tags from '../Pages/Tags/Tags';
 import Users from '../Pages/Users/Users';
 import ProfilePage from '../Pages/ProfilePage/ProfilePage';
-
+import ChatBot from '../Pages/Chatbot/ChatBot';
+import Verification from '../Pages/Auth/Verification';
 
 const AllRoutes = () => {
   return (
@@ -25,6 +26,8 @@ const AllRoutes = () => {
             <Route exact path='/tags' element={<Tags/>} />
             <Route exact path='/users' element={<Users/>} />
             <Route exact path='/users/:id' element={<ProfilePage />} />
+            <Route exact path='/chatbot' element={<ChatBot/>} />
+            <Route exact path='/auth-verfify' element={<Verification />}/>
         </Routes>
     </>
   )

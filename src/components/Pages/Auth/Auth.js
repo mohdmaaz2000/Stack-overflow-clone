@@ -33,6 +33,7 @@ const Auth = () => {
         alert("Enter the name");
       }
       dispatch(signup({name,email,password},navigate));
+      
     }
     else{
       dispatch(login({email,password},navigate));

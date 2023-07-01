@@ -17,8 +17,9 @@ const ProfilePage = () => {
     const users = useSelector((state) => state.userReducer);
     const currentProfile = users.filter((user) => user._id === id)[0];
     const currentUser = useSelector((state) => state.currentUserReducer);
-
+    const currentUserData = users.filter((user) => user._id === currentUser?.result?._id )[0];
     const [Switch,setSwitch] = useState(false);
+
     return (
         <div className='home-container-1'>
             <LeftSidebar />
@@ -44,7 +45,7 @@ const ProfilePage = () => {
                     <>
                     {
                         Switch ? (
-                            <EditProfileForm currentUser={currentUser} setSwitch={setSwitch} />
+                            <EditProfileForm currentUser={currentUserData} setSwitch={setSwitch} />
                         ):(
                             <ProfileBio currentProfile={currentProfile}/>
                         )
