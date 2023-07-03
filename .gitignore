@@ -3,6 +3,12 @@
 /backend/node_modules
 
 /backend/.env
+/backend/.DS_Store
+/backend/.env.local
+/backend/.env.development.local
+/backend/.env.test.local
+/backend/.env.production.local
+
 # dependencies
 /node_modules
 /.pnp
