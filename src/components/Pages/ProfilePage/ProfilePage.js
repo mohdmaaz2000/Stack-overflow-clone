@@ -15,9 +15,10 @@ const ProfilePage = () => {
 
     const { id } = useParams();
     const users = useSelector((state) => state.userReducer);
-    const currentProfile = users.filter((user) => user._id === id)[0];
+    const currentProfile = users?.filter((user) => user._id === id)[0];
     const currentUser = useSelector((state) => state.currentUserReducer);
-    const currentUserData = users.filter((user) => user._id === currentUser?.result?._id )[0];
+    const currentUserData = users?.filter((user) => user._id === currentUser?.result?._id )[0];
+    // console.log(currentUserData);
     const [Switch,setSwitch] = useState(false);
 
     return (
@@ -27,8 +28,13 @@ const ProfilePage = () => {
                 <section>
                     <div className="user-details-container">
                         <div className="user-details">
-                            <Avatar bgColor={'purple'} color={'white'} fSize={'50px'} px={'40px'} py={'30px'}>{currentProfile?.name.charAt(0).toUpperCase()}
-                            </Avatar>
+                            {   currentProfile?.image ? <>
+                                <img src={`http://localhost:5000/Profilephoto/${currentProfile.image}`} alt="prifile" className='user-details-img'/>
+                                </>:
+                                <Avatar bgColor={'purple'} color={'white'} fSize={'50px'} px={'40px'} py={'30px'}>{currentProfile?.name.charAt(0).toUpperCase()}
+                                </Avatar>
+
+                            }
                             <div className="user-name">
                                 <h1>{currentProfile?.name}</h1>
                                 <p><FontAwesomeIcon icon={faBirthdayCake} /> Joined {moment(currentProfile?.joinedOn).fromNow()}</p>

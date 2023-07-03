@@ -1,7 +1,7 @@
 const express = require('express')
 
 const route = express.Router();
-
+const {uploadProfile} = require('../middleware/PostConfig');
 const auth = require('../controllers/auth');
 const users = require('../controllers/fetchUsers');
 
@@ -11,7 +11,7 @@ route.post('/login',auth.login);
 
 route.get('/allUsers',users.fetchAllUsers);
 route.patch('/updateUser/:id',users.updateUser);
-
+route.patch('/updateProfile/:id',uploadProfile.single('image'),users.updateProfile);
 
 
 module.exports = route

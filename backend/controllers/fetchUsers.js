@@ -6,7 +6,7 @@ const fetchAllUsers = async (req, res) => {
         const data = await user.find();
         let userData = [];
         data.forEach(d => {
-            userData.push({ _id: d._id, name: d.name, about: d.about, joinedOn: d.joinedOn, tags: d.tags,chatbot : d.chatbot })
+            userData.push({ _id: d._id, name: d.name, about: d.about, joinedOn: d.joinedOn, tags: d.tags,chatbot : d.chatbot,image:d.profilePhoto })
         });
         res.status(200).json(userData);
     } catch (error) {
@@ -30,4 +30,20 @@ const updateUser = async (req, res) => {
 
 }
 
-module.exports = { fetchAllUsers, updateUser };
+const updateProfile = async(req,res) =>{
+    const {id:_id} = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return res.status(404).json({error:true, message: "Not a valid user" });
+    }
+
+    try {
+        const photo = req.file.filename;
+        const updatedata = await user.findByIdAndUpdate(_id,{$set:{'profilePhoto':photo}},{new:true});
+        return res.status(200).json(updatedata);
+    } catch (error) {
+        return res.status(500).json({error:true,message:"Internal server error"});
+    }
+};
+
+module.exports = { fetchAllUsers, updateUser ,updateProfile};

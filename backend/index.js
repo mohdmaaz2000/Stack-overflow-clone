@@ -12,8 +12,11 @@ app.use(express.json({limit:"30mb",extended:true}));
 app.use(express.urlencoded({limit:"30mb",extended:true}));
 app.use(cors());
 
+// to use the static file
+app.use(express.static('public'));
+
 dotenv.config();
-createConnection()
+createConnection();
 
 const PORT = process.env.PORT || 5000;
 
@@ -29,6 +32,6 @@ app.use('/answer',answerRoute);
 
 app.use('/chatbot',chatBotRoute);
 
-app.listen(PORT,(req,res)=>{
+app.listen(PORT,()=>{
     console.log(`Server is running on port-${PORT}`);
 });

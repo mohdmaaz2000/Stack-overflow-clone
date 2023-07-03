@@ -85,3 +85,12 @@
     transition: 0.2s;
     margin-left: 10px;
 }
+
+.form-img:hover{
+    cursor: pointer;
+}
+
+.user-details-img{
+    width: 100px;
+    height: 110px;
+}

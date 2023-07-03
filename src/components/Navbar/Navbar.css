@@ -83,3 +83,10 @@
 .nav-links:hover{
     background-color: rgb(226, 226, 226);
 }
+
+.profilePic
+{
+    height: 35px;
+    width: 35px;
+    border-radius: 48%;
+}

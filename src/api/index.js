@@ -4,7 +4,7 @@ const API = axios.create({
     baseURL:'http://localhost:5000',
     timeout: 1000 * 30,
     validateStatus: (status) => {
-        return status >= 200 && status < 500
+        return status >= 200 && status <= 505
       }
 });
 
@@ -20,6 +20,7 @@ export const logIn = (authData) => API.post('/user/login',authData);
 export const signUp = (authData) =>API.post('/user/signup',authData);
 export const fetchAllUsers = () => API.get('/user/allUsers');
 export const updateUser = (id,userData) => API.patch(`/user/updateUser/${id}`,userData);
+export const updateProfile = (id,formData) => API.patch(`user/updateProfile/${id}`,formData);
 
 export const postQuestion = (questionData) =>API.post('/questions/Ask',questionData);
 export const allQuestion = () => API.get('/questions/getQuestions');

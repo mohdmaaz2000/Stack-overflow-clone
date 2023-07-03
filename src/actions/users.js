@@ -18,3 +18,20 @@ export const updateUser = (id, userData) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const updateProfile = (id, formData) => async (dispatch) => {
+    try {
+        const { data } = await api.updateProfile(id, formData);
+        if (data.error === true) {
+            alert(data.message);
+        }
+        else {
+            dispatch({ type: 'UPDATE_PROFILE', payload: data });
+            dispatch(fetchAllUsers());
+            alert("updated Successfully");
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}

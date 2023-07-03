@@ -18,10 +18,10 @@ const askQuestion = async (req, res) => {
         const answer = response.data.choices[0].text;
         const finalAnswer = answer.replace(/^\n+/, "")
         const updatedData = await users.findByIdAndUpdate(userId,{$addToSet:{'chatbot':[{question:question,answer:finalAnswer}]}},{new:true});
-        res.status(200).json(updatedData);
+        return res.status(200).json(updatedData);
 
     } catch (err) {
-        res.status(409).json({ message: "Internal server error" });
+        return res.status(409).json({ message: "Internal server error" });
     }
 }
 const deleteQuestions = async(req,res)=>{
