@@ -21,6 +21,7 @@ export const signUp = (authData) =>API.post('/user/signup',authData);
 export const fetchAllUsers = () => API.get('/user/allUsers');
 export const updateUser = (id,userData) => API.patch(`/user/updateUser/${id}`,userData);
 export const updateProfile = (id,formData) => API.patch(`user/updateProfile/${id}`,formData);
+export const deleteProfile = (id) =>API.patch(`user/removeProfile/${id}`);
 
 export const postQuestion = (questionData) =>API.post('/questions/Ask',questionData);
 export const allQuestion = () => API.get('/questions/getQuestions');

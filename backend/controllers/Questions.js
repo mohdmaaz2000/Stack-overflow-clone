@@ -9,7 +9,6 @@ const askQuestion = async (req, res) => {
         await postQuestion.save();
         res.status(200).json({ message: "Question posted successfully" });
     } catch (error) {
-        console.log(error);
         res.status(409).json({ message: "Error occured" });
     }
 }

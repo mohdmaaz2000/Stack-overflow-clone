@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { updateProfile, updateUser } from '../../../actions/users';
+import { deleteProfile, updateProfile, updateUser } from '../../../actions/users';
 import { useDispatch } from 'react-redux';
 
 const EditProfileForm = (props) => {
@@ -34,6 +34,12 @@ const EditProfileForm = (props) => {
     }
   }
 
+  const handleDeleteProfile = (e)=>{
+    e.preventDefault();
+    dispatch(deleteProfile(currentUser?._id));
+    setSwitch(false);
+  }
+
   return (
     <div>
       <h1 className="edit-profile-title">Edit Your Profile</h1>
@@ -60,14 +66,23 @@ const EditProfileForm = (props) => {
       <br />
 
 
-      <form className='edit-profile-form ' onSubmit={handleImgSubmit}>
+      <form className='edit-profile-form' onSubmit={handleImgSubmit}>
         <label htmlFor="profileImg">
-          <h3 style={{ marginBottom: '5px' }}>Upload Profile Photo</h3>
+          <h3 style={{ marginBottom: '5px' }}>{currentUser.image ? <>Edit Profile Photo</> :<>Upload Profile Photo</>}</h3>
           <input type="file" name="image" id="profileImg" className='form-img' onChange={(e) => {
             setImage(e.target.files[0]);
-          }} />
+          }}  accept=".jpg,.png,.jpeg,"/>
         </label>
-        <input type="submit" value="Upload Profile" className='user-submit-btn' style={{ display: 'block' }} />
+        {
+          currentUser.image ?
+          (<div style={{display:'flex'}}>
+          <input type="submit" value="Edit Profile" className='user-submit-btn'style={{marginRight:'5px'}}/>
+          <button type='button' className='user-submit-btn' onClick={handleDeleteProfile} style={{marginLeft:'5px'}}>Delete Profile Photo</button> 
+          </div>)
+           : 
+           (<input type="submit" value="Upload Profile" className='user-submit-btn' style={{ display: 'block' }} />)
+        }
+        
       </form>
 
     </div>

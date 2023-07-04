@@ -61,7 +61,7 @@ const Navbar = () => {
             {
               currentProfile?.image ? <>
                 <Link to={`/users/${User?.result?._id}`} >
-                  <img src={`http://localhost:5000/Profilephoto/${currentProfile.image}`} className='profilePic' alt='img' />
+                  <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.image}`} className='profilePic' alt='img' />
                 </Link>
               </> :
                 <>

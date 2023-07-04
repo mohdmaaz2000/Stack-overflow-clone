@@ -35,3 +35,19 @@ export const updateProfile = (id, formData) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const deleteProfile = (id) => async (dispatch) => {
+    try {
+        const {data} = await api.deleteProfile(id);
+        if(data.error === true)
+        {
+            alert(data.message);
+        }
+        else{
+            dispatch({type:'DELETE_PROFILE',payload:data});
+            dispatch(fetchAllUsers());
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

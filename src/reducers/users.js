@@ -7,6 +7,8 @@ const userReducer = (states = [], action) => {
             return states.map((state) => state._id === action.payload._id ? action.payload : state)
         case 'UPDATE_PROFILE':
             return states.map((state) => state._id === action.payload._id ? action.payload : state);
+        case 'DELETE_PROFILE':
+            return states.map((state) => state._id === action.payload._id ? action.payload : state);
         default:
             return states;
     }

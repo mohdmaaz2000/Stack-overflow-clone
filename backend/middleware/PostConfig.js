@@ -1,9 +1,11 @@
 const multer = require('multer')
 
+
+// Configuration for user profile
 const ProfileStorage = multer.diskStorage({
     destination: './public/Profilephoto', //directory (folder) setting
     filename: (req, file, cb) => {
-        cb(null,  Date.now() + file.originalname ) // file name setting
+        cb(null, Date.now() + file.originalname) // file name setting
     }
 });
 
@@ -24,4 +26,17 @@ let uploadProfile = multer({
     }
 });
 
-module.exports = {uploadProfile};
+
+// configuration for user post 
+const PostStorage = multer.diskStorage({
+    destination: './public/UserPost', //directory (folder) setting
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + file.originalname) // file name setting
+    }
+});
+
+let uploadPost = multer({
+    storage: PostStorage,
+});
+
+module.exports = { uploadProfile, uploadPost };

@@ -6,6 +6,7 @@ const userRoute = require('./routes/users');
 const questionRoute = require('./routes/Question');
 const answerRoute = require('./routes/Answer');
 const chatBotRoute = require('./routes/Chatbot');
+const postRoute = require('./routes/Post');
 
 const dotenv = require('dotenv');
 app.use(express.json({limit:"30mb",extended:true}));
@@ -25,12 +26,14 @@ app.get('/',(req,res)=>{
 });
 
 app.use('/user',userRoute);
+// app.use('/user',postRoute);
 
 app.use('/questions',questionRoute);
 
 app.use('/answer',answerRoute);
 
 app.use('/chatbot',chatBotRoute);
+
 
 app.listen(PORT,()=>{
     console.log(`Server is running on port-${PORT}`);

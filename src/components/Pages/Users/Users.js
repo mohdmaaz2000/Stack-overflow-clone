@@ -4,7 +4,6 @@ import UserPart from './UserPart';
 import './User.css';
 
 const Users = () => {
-  // console.log(users);
   return (
     <div className='home-container-1'>
       <LeftSidebar />

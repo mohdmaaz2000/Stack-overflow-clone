@@ -9,6 +9,8 @@ import LeftSidebar from '../../LeftSidebar/LeftSidebar'
 import Avatar from '../../Avatar/Avatar';
 import EditProfileForm from './EditProfileForm';
 import ProfileBio from './ProfileBio';
+import UserPost from './UserPost';
+
 import './Profile.css'
 
 const ProfilePage = () => {
@@ -29,7 +31,7 @@ const ProfilePage = () => {
                     <div className="user-details-container">
                         <div className="user-details">
                             {   currentProfile?.image ? <>
-                                <img src={`http://localhost:5000/Profilephoto/${currentProfile.image}`} alt="prifile" className='user-details-img'/>
+                                <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.image}`} alt="prifile" className='user-details-img'/>
                                 </>:
                                 <Avatar bgColor={'purple'} color={'white'} fSize={'50px'} px={'40px'} py={'30px'}>{currentProfile?.name.charAt(0).toUpperCase()}
                                 </Avatar>
@@ -52,12 +54,15 @@ const ProfilePage = () => {
                     {
                         Switch ? (
                             <EditProfileForm currentUser={currentUserData} setSwitch={setSwitch} />
-                        ):(
+                        ):(<>
                             <ProfileBio currentProfile={currentProfile}/>
+                            <UserPost currentUser={currentUser} currentProfile={currentProfile}/>
+                            </>
                         )
                     }
                     </>
                 </section>
+                
             </div>
         </div>
     )
