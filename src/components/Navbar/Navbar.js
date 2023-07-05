@@ -46,7 +46,7 @@ const Navbar = () => {
           <img src={logo} alt="logo" width="150" />
         </Link>
         <Link to="/chatbot" className='nav-item nav-btn'>Ask chatbot</Link>
-        <Link to="/" className='nav-item nav-btn'>About</Link>
+        <Link to="/post" className='nav-item nav-btn'>Posts</Link>
         <Link to="/" className='nav-item nav-btn'>For Teams</Link>
 
         <form >

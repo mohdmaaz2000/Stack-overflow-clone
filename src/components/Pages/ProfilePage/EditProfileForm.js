@@ -16,7 +16,8 @@ const EditProfileForm = (props) => {
       dispatch(updateUser(currentUser?._id, { name, about, tags: currentUser?.tags }));
     }
     else {
-      dispatch(updateUser(currentUser?._id, { name, about, tags }));
+      const tagList = tags.split(/(\s+)/).filter(function (e) { return e.trim().length > 0; });
+      dispatch(updateUser(currentUser?._id, { name, about, tags:tagList }));
     }
     setSwitch(false);
     alert("Updated Successfully");
@@ -34,7 +35,7 @@ const EditProfileForm = (props) => {
     }
   }
 
-  const handleDeleteProfile = (e)=>{
+  const handleDeleteProfile = (e) => {
     e.preventDefault();
     dispatch(deleteProfile(currentUser?._id));
     setSwitch(false);
@@ -57,7 +58,7 @@ const EditProfileForm = (props) => {
         <label htmlFor="tags">
           <h3>Watched Tags</h3>
           <p>Add tags seperated by one space</p>
-          <input type="text" id="tags" onChange={(e) => setTags(e.target.value.split(' '))} />
+          <input type="text" id="tags" onChange={(e) => setTags(e.target.value)} />
         </label>
         <br />
         <input type="submit" value="Save Profile" className='user-submit-btn' />
@@ -68,21 +69,21 @@ const EditProfileForm = (props) => {
 
       <form className='edit-profile-form' onSubmit={handleImgSubmit}>
         <label htmlFor="profileImg">
-          <h3 style={{ marginBottom: '5px' }}>{currentUser.image ? <>Edit Profile Photo</> :<>Upload Profile Photo</>}</h3>
+          <h3 style={{ marginBottom: '5px' }}>{currentUser.image ? <>Edit Profile Photo</> : <>Upload Profile Photo</>}</h3>
           <input type="file" name="image" id="profileImg" className='form-img' onChange={(e) => {
             setImage(e.target.files[0]);
-          }}  accept=".jpg,.png,.jpeg,"/>
+          }} accept=".jpg,.png,.jpeg," />
         </label>
         {
           currentUser.image ?
-          (<div style={{display:'flex'}}>
-          <input type="submit" value="Edit Profile" className='user-submit-btn'style={{marginRight:'5px'}}/>
-          <button type='button' className='user-submit-btn' onClick={handleDeleteProfile} style={{marginLeft:'5px'}}>Delete Profile Photo</button> 
-          </div>)
-           : 
-           (<input type="submit" value="Upload Profile" className='user-submit-btn' style={{ display: 'block' }} />)
+            (<div style={{ display: 'flex' }}>
+              <input type="submit" value="Edit Profile" className='user-submit-btn' style={{ marginRight: '5px' }} />
+              <button type='button' className='user-submit-btn' onClick={handleDeleteProfile} style={{ marginLeft: '5px' }}>Delete Profile Photo</button>
+            </div>)
+            :
+            (<input type="submit" value="Upload Profile" className='user-submit-btn' style={{ display: 'block' }} />)
         }
-        
+
       </form>
 
     </div>

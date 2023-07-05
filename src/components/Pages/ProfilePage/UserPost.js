@@ -1,6 +1,7 @@
 import React from 'react'
 import './UserPost.css'
-import Post from './Post';
+import Post from '../Posts/Post';
+import { useNavigate } from 'react-router-dom';
 
 const posts = [{
     _id: "1",
@@ -32,20 +33,30 @@ const posts = [{
 const UserPost = (props) => {
 
     const { currentUser, currentProfile } = props;
+    const navigate = useNavigate();
+    const handlePost = (e)=>{
+        e.preventDefault();
+        navigate('/handlePost');
+    }
 
     return (
         <>
             {posts.length !== 0 && (
                 <div className="post-container">
                     <div className="post-container-header">
-                        <h1>{currentUser?.result?._id === currentProfile?._id ?
-                            (<>Your Posts</>) :
-                            (<>{currentProfile?.name} Posts</>)
-                        }</h1>
+                        <>{currentUser?.result?._id === currentProfile?._id ?
+                            (<>
+                                <div className='upload-post-div'>
+                                    <button onClick={handlePost} className='user-submit-btn'>Upload a post</button>
+                                </div>
+                                <h1>Your Posts</h1>
+                            </>) :
+                            (<h1>{currentProfile?.name} Posts</h1>)
+                        }</>
                     </div>
                     {
-                        posts.map((element) =>(
-                            <Post key={element._id} data={element} currentProfile={currentProfile}/>
+                        posts.map((element) => (
+                            <Post key={element._id} data={element} />
                         ))
                     }
                 </div>

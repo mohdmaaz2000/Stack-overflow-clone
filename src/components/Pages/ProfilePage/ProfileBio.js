@@ -9,12 +9,14 @@ const ProfileBio = (props) => {
                     currentProfile?.tags ? (
                         <>
 
-                            <h4>Tags Watched</h4>
+                            <h4 className='user-tags-heading'>Tags Watched</h4>
+                            <div className='user-tags-container'>
                             {
                                 currentProfile.tags.map((tag) => (
-                                    <p key={tag}>{tag}</p>
+                                    <p key={tag} className='profile-tags'>{tag}</p>
                                 ))
                             }
+                            </div>
                         </>
 
                     ) : (

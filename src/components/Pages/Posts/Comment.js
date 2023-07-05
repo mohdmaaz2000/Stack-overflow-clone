@@ -29,7 +29,7 @@ const Comment = (props) => {
             <div className="comment-details">
                 <h4>{commentUser?.name}</h4>
                 <p>{data?.comment}</p>
-                <span>commented {moment(data?.commentedOn).fromNow()}</span>
+                <span className='comment-time'>commented {moment(data?.commentedOn).fromNow()}</span>
             </div>
         </li>
     )

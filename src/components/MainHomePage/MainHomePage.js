@@ -39,7 +39,7 @@ const MainHomePage = () => {
           <p>{questionList.data.length} questions </p> 
           <>
           {
-            questionList.data.map((element)=>(
+            questionList.data.toReversed().map((element)=>(
               <Questions question={element} key={element._id} />
             ))
           }

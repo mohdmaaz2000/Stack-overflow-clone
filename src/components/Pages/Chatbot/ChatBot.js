@@ -30,10 +30,6 @@ const ChatBot = () => {
 
   useEffect(() => {
     scrollToBottom();
-    window.onload = function () {
-      // var container = document.getElementById("chatbot-messages");
-      // container.scrollTop = container.scrollHeight;
-    }
 
   }, [messagesContainerRef, currentUserData, loading]);
 

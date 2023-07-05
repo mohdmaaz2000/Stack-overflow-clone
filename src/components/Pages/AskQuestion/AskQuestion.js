@@ -15,12 +15,13 @@ const AskQuestion = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const questionTagarray = questionTags.split(/(\s+)/).filter( function(e) { return e.trim().length > 0; } );
         if (User === null) {
             navigate('/auth');
             alert("Login to post the question");
         }
         else {
-            dispatch(askQuestion({ questionTitle, questionBody, questionTags, userPosted: User.result.name, userId: User.result._id }, navigate));
+            dispatch(askQuestion({ questionTitle, questionBody, questionTags:questionTagarray, userPosted: User.result.name, userId: User.result._id }, navigate));
         }
     }
     const handleEnter = (e) => {
@@ -48,7 +49,7 @@ const AskQuestion = () => {
                         <label htmlFor="ask-ques-tags">
                             <h4>Tags</h4>
                             <p>Add upto 5 tags to describe what your question is about</p>
-                            <input type="text" placeholder='e.g. (c++,java,javascript)' id='ask-ques-tags' name='q-tags' onChange={(e) => setQuestionTags(e.target.value.split(" "))} />
+                            <input type="text" placeholder='e.g. (c++,java,javascript)' id='ask-ques-tags' name='q-tags' onChange={(e) => setQuestionTags(e.target.value)} />
                         </label>
                     </div>
                     <input type="submit" value="Review your question" className='review-btn' />

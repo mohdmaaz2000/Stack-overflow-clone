@@ -20,7 +20,6 @@ const ProfilePage = () => {
     const currentProfile = users?.filter((user) => user._id === id)[0];
     const currentUser = useSelector((state) => state.currentUserReducer);
     const currentUserData = users?.filter((user) => user._id === currentUser?.result?._id )[0];
-    // console.log(currentUserData);
     const [Switch,setSwitch] = useState(false);
 
     return (
