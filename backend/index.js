@@ -26,7 +26,7 @@ app.get('/',(req,res)=>{
 });
 
 app.use('/user',userRoute);
-// app.use('/user',postRoute);
+app.use('/posts',postRoute);
 
 app.use('/questions',questionRoute);
 

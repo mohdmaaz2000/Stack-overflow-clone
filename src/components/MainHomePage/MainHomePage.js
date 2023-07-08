@@ -11,7 +11,6 @@ const MainHomePage = () => {
   const location = useLocation();
   const questionList = useSelector(state=>state.questionReducer);
 
-  
   const handleClick = ()=>{
     if(user === null)
     {

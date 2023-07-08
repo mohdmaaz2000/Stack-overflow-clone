@@ -26,7 +26,7 @@ const Navbar = () => {
     if (User !== null) {
       setCurrentProfile(users?.filter((user) => user._id === User.result._id)[0]);
     }
-  }, [User,users]);
+  }, [User, users]);
 
   useEffect(() => {
     const token = User?.token;
@@ -39,14 +39,37 @@ const Navbar = () => {
     dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
   }, [])  // eslint-disable-line react-hooks/exhaustive-deps 
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (User === null) {
+      alert("Please Login first");
+      navigate('/auth');
+    }
+    else {
+      navigate('/chatbot');
+    }
+  }
+
+  const handleClickPost = (e) => {
+    e.preventDefault();
+    if (User === null) {
+      alert("Please Login first");
+      navigate('/auth');
+    }
+    else {
+      navigate('/post');
+    }
+  }
+
+
   return (
     <nav className='main-nav'>
       <div className="navbar">
         <Link to="/" className='nav-item nav-logo'>
           <img src={logo} alt="logo" width="150" />
         </Link>
-        <Link to="/chatbot" className='nav-item nav-btn'>Ask chatbot</Link>
-        <Link to="/post" className='nav-item nav-btn'>Posts</Link>
+        <Link to="/chatbot" className='nav-item nav-btn' onClick={handleClick}>Ask chatbot</Link>
+        <Link to="/post" className='nav-item nav-btn' onClick={handleClickPost}>Posts</Link>
         <Link to="/" className='nav-item nav-btn'>For Teams</Link>
 
         <form >

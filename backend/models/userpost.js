@@ -2,15 +2,19 @@ const { mongoose } = require('mongoose');
 const { Schema } = mongoose
 
 const userPostSchema = new Schema({
-    userPosted: {
+    userPostedId: {
         type: String,
         required: true
+    },
+    userPosted:{
+        type:String,
+        required:true
     },
     content: {
         type: String
     },
     fileContent: {
-        type: String
+        type: Object
     },
     postedOn: {
         type: Date,

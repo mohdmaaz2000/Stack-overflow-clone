@@ -43,8 +43,12 @@ const QuestionDetails = () => {
   }
 
   const handleDelete = () => {
-    dispatch(deleteQuestion(id, navigate));
-    alert("Question Deleted Successfully");
+    const del = window.confirm("Question will be deleted permanently");
+    if(del)
+    {
+      dispatch(deleteQuestion(id, navigate));
+      alert("Question Deleted Successfully");
+    }
   }
 
   const handleUpVote = () => {

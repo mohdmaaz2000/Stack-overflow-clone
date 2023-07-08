@@ -51,8 +51,9 @@
     margin-bottom: 10px;
 }
 
-.post-image {
-    height: 450px;
+.post-image,
+.post-video {
+    height: 400px;
     width: 90%;
 }
 
@@ -89,14 +90,16 @@
 }
 
 @media (max-width:1000px) {
-    .post-image {
+    .post-image,
+    .post-video {
         height: 350px;
         width: 90%;
     }
 }
 
 @media (max-width: 800px) {
-    .post-image {
+    .post-image,
+    .post-video {
         height: 250px;
         width: 90%;
     }
@@ -107,8 +110,9 @@
         padding: 10px;
     }
 
-    .post-image {
-        height: 150px;
+    .post-image,
+    .post-video {
+        height: 220px;
         width: 90%;
     }
 

@@ -117,7 +117,22 @@
     width: 100px;
     height: 110px;
 }
+#profileImg
+{
+    display: block;
+}
 
+.previewImage-profile{
+    width: 100px;
+    height: 110px;
+}
+
+.previewImage-profile-p{
+    margin: 1px 0px 15px 0px;
+    color: #999;
+    padding: 3px 0px;
+    
+}
 input[type="file"]::file-selector-button {
     background-color: #0a95ff;
     color: white;

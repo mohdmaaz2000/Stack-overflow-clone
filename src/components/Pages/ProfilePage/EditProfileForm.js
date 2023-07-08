@@ -8,6 +8,7 @@ const EditProfileForm = (props) => {
   const [about, setAbout] = useState(currentUser?.about);
   const [tags, setTags] = useState('');
   const [image, setImage] = useState('');
+  const [preview, setPreview] = useState(null);
   const dispatch = useDispatch();
 
   const handleEdit = (e) => {
@@ -17,7 +18,7 @@ const EditProfileForm = (props) => {
     }
     else {
       const tagList = tags.split(/(\s+)/).filter(function (e) { return e.trim().length > 0; });
-      dispatch(updateUser(currentUser?._id, { name, about, tags:tagList }));
+      dispatch(updateUser(currentUser?._id, { name, about, tags: tagList }));
     }
     setSwitch(false);
     alert("Updated Successfully");
@@ -37,8 +38,27 @@ const EditProfileForm = (props) => {
 
   const handleDeleteProfile = (e) => {
     e.preventDefault();
-    dispatch(deleteProfile(currentUser?._id));
-    setSwitch(false);
+    const del = window.confirm("Are you confirm to delete profile photo?");
+    if (del) {
+      dispatch(deleteProfile(currentUser?._id));
+      setSwitch(false);
+    }
+  }
+
+  const handleFileInputChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (!selectedFile) {
+      setImage(null);
+      setPreview(null);
+      return;
+    }
+    setImage(selectedFile);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result);
+    };
+    reader.readAsDataURL(selectedFile);
   }
 
   return (
@@ -69,13 +89,19 @@ const EditProfileForm = (props) => {
 
       <form className='edit-profile-form' onSubmit={handleImgSubmit}>
         <label htmlFor="profileImg">
-          <h3 style={{ marginBottom: '5px' }}>{currentUser.image ? <>Edit Profile Photo</> : <>Upload Profile Photo</>}</h3>
-          <input type="file" name="image" id="profileImg" className='form-img' onChange={(e) => {
-            setImage(e.target.files[0]);
-          }} accept=".jpg,.png,.jpeg," />
+          <h3 style={{ marginBottom: '5px' }}>{currentUser?.image ? <>Edit Profile Photo</> : <>Upload Profile Photo</>}</h3>
+          <input type="file" name="image" id="profileImg" className='form-img' onChange={handleFileInputChange} accept=".jpg,.png,.jpeg," />
         </label>
         {
-          currentUser.image ?
+          preview &&
+          (<>
+            <img src={preview} alt="Preview" className='previewImage-profile' />
+            <p className='previewImage-profile-p'>Preview of your profile photo</p>
+          </>
+          )
+        }
+        {
+          currentUser?.image ?
             (<div style={{ display: 'flex' }}>
               <input type="submit" value="Edit Profile" className='user-submit-btn' style={{ marginRight: '5px' }} />
               <button type='button' className='user-submit-btn' onClick={handleDeleteProfile} style={{ marginLeft: '5px' }}>Delete Profile Photo</button>

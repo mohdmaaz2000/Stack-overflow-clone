@@ -12,8 +12,12 @@ const DisplayAnswer = (props) => {
     const User = useSelector((state) => state.currentUserReducer);
     const handleDeletAnswer = (e,answerId) =>{
         e.preventDefault();
-        dispatch(deleteAnswer(question._id,answerId,question.noOfAnswer-1));
-        alert('Answer Deleted');
+        const del = window.confirm("Are you sure to delete the answer?");
+        if(del)
+        {
+            dispatch(deleteAnswer(question._id,answerId,question.noOfAnswer-1));
+            alert('Answer Deleted');
+        }
     }
   return (
     <div>
