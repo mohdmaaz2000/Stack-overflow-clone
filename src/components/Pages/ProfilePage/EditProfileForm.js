@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import { deleteProfile, updateProfile, updateUser } from '../../../actions/users';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const EditProfileForm = (props) => {
   const { currentUser, setSwitch } = props;
@@ -10,28 +13,31 @@ const EditProfileForm = (props) => {
   const [image, setImage] = useState('');
   const [preview, setPreview] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleEdit = (e) => {
     e.preventDefault();
     if (tags === '') {
-      dispatch(updateUser(currentUser?._id, { name, about, tags: currentUser?.tags }));
+      dispatch(updateUser(currentUser?._id, { name, about, tags: currentUser?.tags },navigate));
     }
     else {
       const tagList = tags.split(/(\s+)/).filter(function (e) { return e.trim().length > 0; });
-      dispatch(updateUser(currentUser?._id, { name, about, tags: tagList }));
+      dispatch(updateUser(currentUser?._id, { name, about, tags: tagList },navigate));
     }
     setSwitch(false);
-    alert("Updated Successfully");
   }
 
   const handleImgSubmit = (e) => {
     e.preventDefault();
     if (image === '') {
-      alert("Please upload the image first");
+      toast.warning("Please upload the image first", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'colored'
+      });
     } else {
       let formData = new FormData();
       formData.append('image', image);
-      dispatch(updateProfile(currentUser?._id, formData));
+      dispatch(updateProfile(currentUser?._id, formData,navigate));
       setSwitch(false);
     }
   }
@@ -40,7 +46,7 @@ const EditProfileForm = (props) => {
     e.preventDefault();
     const del = window.confirm("Are you confirm to delete profile photo?");
     if (del) {
-      dispatch(deleteProfile(currentUser?._id));
+      dispatch(deleteProfile(currentUser?._id,navigate));
       setSwitch(false);
     }
   }

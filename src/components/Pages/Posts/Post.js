@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import { toast } from 'react-toastify';
+
 
 import { deletePost, likePost } from '../../../actions/post';
 import Avatar from '../../Avatar/Avatar';
@@ -39,7 +41,10 @@ const Post = (props) => {
         e.preventDefault();
         if(currentUser === null)
         {
-            alert("Login to like the post");
+            toast.warning("Login to like the post", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+              });
             navigate('/auth');
         }
         else{

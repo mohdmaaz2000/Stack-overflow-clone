@@ -7,6 +7,8 @@ import './Navbar.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from '../../actions/currentUser'
 import jwtDecode from 'jwt-decode';
+import { toast } from 'react-toastify'
+
 
 const Navbar = () => {
 
@@ -21,6 +23,10 @@ const Navbar = () => {
     dispatch({ type: "LOGOUT" });
     navigate('/');
     dispatch(setCurrentUser(null));
+    toast.success("Logged out successfully", {
+      position: toast.POSITION.TOP_CENTER,
+      theme:'colored'
+    });
   }
   useEffect(() => {
     if (User !== null) {
@@ -42,7 +48,10 @@ const Navbar = () => {
   const handleClick = (e) => {
     e.preventDefault();
     if (User === null) {
-      alert("Please Login first");
+      toast.warning("Please Login first", {
+        position: toast.POSITION.TOP_CENTER,
+        theme:'colored'
+      });
       navigate('/auth');
     }
     else {
@@ -53,15 +62,17 @@ const Navbar = () => {
   const handleClickPost = (e) => {
     e.preventDefault();
     if (User === null) {
-      alert("Please Login first");
+      toast.warning("Please Login first", {
+        position: toast.POSITION.TOP_CENTER,
+        theme:'colored'
+      });
       navigate('/auth');
     }
     else {
       navigate('/post');
     }
   }
-
-
+  
   return (
     <nav className='main-nav'>
       <div className="navbar">

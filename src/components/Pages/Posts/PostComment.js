@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 
 import '../ProfilePage/UserPost.css'
@@ -17,8 +18,18 @@ const PostComment = (props) => {
     const handlePostComment = (e) => {
         e.preventDefault();
         if (currentUser === null) {
-            alert("Login to comment");
+            toast.warning("Login to comment", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
             navigate('/auth');
+        }
+        else if(commentContent === '')
+        {
+            toast.warning("Comment can't be empty", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
         }
         else {
             dispatch(commentOnPost(post._id, { userCommented: currentUser?.result._id, commentContent }));

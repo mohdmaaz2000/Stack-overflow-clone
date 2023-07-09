@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import './QuestionDetails.css'
 import moment from 'moment/moment';
 import copy from 'copy-to-clipboard';
+import { toast } from 'react-toastify';
 
 import sortup from '../../../assets/sort-up-solid.svg'
 import sortdown from '../../../assets/sort-down-solid.svg'
@@ -19,59 +20,69 @@ const QuestionDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+
   const handleSubmit = (e, ansLength) => {
     e.preventDefault();
     if (User === null) {
-      alert("Login to answer the question");
+      toast.warning("Login to answer the question", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'colored'
+      });
+
       navigate('/auth');
     }
     else {
       if (answer === '') {
-        alert("Write something to submit");
+        toast.warning("Write something to submit", {
+          position: toast.POSITION.TOP_CENTER,
+          theme: 'colored'
+        });
       }
       else {
-        dispatch(postAnswer({ id, noOfAnswer: ansLength + 1, answerBody: answer, userAnswered: User.result.name, userId: User.result._id }));
+        dispatch(postAnswer({ id, noOfAnswer: ansLength + 1, answerBody: answer, userAnswered: User.result.name, userId: User.result._id, navigate }));
         setAnswer('');
-        alert("Answer Submitted");
       }
     }
   }
 
   const handleShare = () => {
-    copy("http://localhost:3000" + location.pathname);
-    alert("Link copied to clipboard");
+    copy(`${process.env.REACT_APP_CLIENT}` + location.pathname);
+    toast.success("Link copied to clipboard", {
+      position: toast.POSITION.TOP_CENTER,
+      theme: 'colored'
+    });
   }
 
   const handleDelete = () => {
     const del = window.confirm("Question will be deleted permanently");
-    if(del)
-    {
+    if (del) {
       dispatch(deleteQuestion(id, navigate));
-      alert("Question Deleted Successfully");
     }
   }
 
   const handleUpVote = () => {
-    if(User === null)
-    {
+    if (User === null) {
       navigate('/auth');
-      alert("Login to vote the question")
+      toast.warning("Login to vote the question", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'colored'
+      });
     }
-    else{
-    dispatch(updateVote(id, 'upVote', User.result._id));
-    alert("voted successfully");
+    else {
+      dispatch(updateVote(id, 'upVote', User.result._id, navigate));
     }
   }
 
   const handleDownVote = () => {
-    if(User === null)
-    {
+    if (User === null) {
       navigate('/auth');
-      alert("Login to vote the question")
+      toast.warning("Login to vote the question", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'colored'
+      });
     }
-    else{
-    dispatch(updateVote(id, 'downVote', User.result._id));
-    alert("voted successfully");
+    else {
+      dispatch(updateVote(id, 'downVote', User.result._id, navigate));;
     }
   }
 
@@ -136,10 +147,10 @@ const QuestionDetails = () => {
                       Browse other question tagged{" "}
                       {
                         question.questionTags.map((tag) => (
-                          <Link to='/Tags' key={tag} className='ans-tags'>{tag} </Link>
+                          <Link to='/Tags' key={tag} className='ans-tags'>{tag}</Link>
                         ))
                       }
-                      or
+                      {" "}or
                       <Link to='/AskQuestion' style={{ textDecoration: 'none', color: '#009dff' }}> ask your own question</Link>
                     </p>
                   </section>

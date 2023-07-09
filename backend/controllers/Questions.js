@@ -9,7 +9,7 @@ const askQuestion = async (req, res) => {
         await postQuestion.save();
         res.status(200).json({ message: "Question posted successfully" });
     } catch (error) {
-        res.status(409).json({ message: "Error occured" });
+        res.status(500).json({ error:true,message: "Internal server error"});
     }
 }
 
@@ -19,21 +19,21 @@ const getAllQuestion = async (req, res) => {
         res.status(200).json(questions);
 
     } catch (error) {
-        res.status(404).json({ message: "Error occured" });
+        res.status(500).json({ error:true,message: "Internal server error"});
     }
 }
 
 const deleteQuestion = async (req, res) => {
     const { id: _id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({ message: "Question not found" });
+        return res.status(404).json({error:true, message: "Question not found" });
     }
 
     try {
         await question.findByIdAndDelete(_id);
         res.status(200).json({ message: "Deleted successfully" });
     } catch (error) {
-        res.status(400).json({ message: "Internal Server error" });
+        res.status(500).json({ error:true,message: "Internal server error"});
     }
 }
 
@@ -41,11 +41,15 @@ const updateVote = async (req, res) => {
     const { id: _id } = req.params;
     const { value, userId } = req.body;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({ message: "Question not found" });
+        return res.status(404).json({ error:true,message: "Question not found" });
     }
 
     try {
         const Question = await question.findById(_id);
+        if(Question === null)
+        {
+            return res.status(404).json({error:true,message:"Question deleted by the user"});
+        }
 
         var upIndex = -1;
         var downIndex = -1;
@@ -82,7 +86,7 @@ const updateVote = async (req, res) => {
         await question.findByIdAndUpdate(_id, Question);
         res.status(200).json({ message: "Voted Successfully" });
     } catch (error) {
-        res.status(409).json({ message: "Internal server error" });
+        res.status(500).json({ error:true,message: "Internal server error"});
     }
 }
 

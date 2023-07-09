@@ -11,7 +11,7 @@ const fetchAllUsers = async (req, res) => {
         });
         res.status(200).json(userData);
     } catch (error) {
-        res.status(409).json({ message: "Internal server error" });
+        res.status(500).json({error:true, message: "Internal server error" });
     }
 }
 const updateUser = async (req, res) => {
@@ -19,10 +19,14 @@ const updateUser = async (req, res) => {
     const { name, about, tags } = req.body;
 
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({ message: "Not a valid user" });
+        return res.status(404).json({error:true, message: "Not a valid user" });
     }
     try {
         const updatedData = await user.findByIdAndUpdate(_id, { $set: { "name": name, "about": about, "tags": tags } }, { new: true });
+        if(updatedData === null)
+        {
+            return res.status(404).json({error:true,message:"Account not found"});
+        }
         const dataToSend = [{ _id: updatedData._id, name: updatedData.name, about: updatedData.about, tags: updatedData.tags, joinedOn: updatedData.joinedOn }];
         res.status(200).json(dataToSend);
     } catch (error) {
@@ -41,6 +45,10 @@ const updateProfile = async (req, res) => {
     try {
         const photo = req.file.filename;
         const data = await user.findById(_id);
+        if(data === null)
+        {
+            return res.status(404).json({error:true,message:"Account not found"})
+        }
         if (data.profilePhoto) {
             fs.unlinkSync(`./public/Profilephoto/${data.profilePhoto}`);
         }
@@ -59,6 +67,10 @@ const deletProfile = async (req, res) => {
 
     try {
         const CurrUser = await user.findById(_id);
+        if(CurrUser === null)
+        {
+            return res.status(404).json({error:true,message:"Account not found"});
+        }
         const data = await user.findByIdAndUpdate(_id, { $set: { 'profilePhoto':null }},{new:true});
         fs.unlinkSync(`./public/Profilephoto/${CurrUser.profilePhoto}`);
         return res.status(200).json(data);

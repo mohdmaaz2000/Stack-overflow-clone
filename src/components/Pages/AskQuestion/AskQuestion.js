@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { askQuestion } from '../../../actions/question'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import './AskQuestion.css'
 import QuestionNotice from './QuestionNotice';
@@ -18,7 +19,10 @@ const AskQuestion = () => {
         const questionTagarray = questionTags.split(/(\s+)/).filter( function(e) { return e.trim().length > 0; } );
         if (User === null) {
             navigate('/auth');
-            alert("Login to post the question");
+            toast.warning("Login to post the question", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
         }
         else {
             dispatch(askQuestion({ questionTitle, questionBody, questionTags:questionTagarray, userPosted: User.result.name, userId: User.result._id }, navigate));

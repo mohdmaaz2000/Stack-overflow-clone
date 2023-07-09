@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import { postNewPost } from '../../../actions/post';
 import './UploadPost.css'
@@ -45,7 +46,10 @@ const UploadPost = () => {
     const handlePostSubmit = (e) => {
         e.preventDefault();
         if (file === null && content === '') {
-            alert("Can't post an empty post");
+            toast.warning("Can't post an empty post", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+              });
         }
         else {
             setLoading(true);

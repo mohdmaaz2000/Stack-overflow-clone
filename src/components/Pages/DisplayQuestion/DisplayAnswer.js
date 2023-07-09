@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
+
 
 import Avatar from '../../Avatar/Avatar'
 import { deleteAnswer } from '../../../actions/question'
@@ -9,14 +10,14 @@ import { deleteAnswer } from '../../../actions/question'
 const DisplayAnswer = (props) => {
     const {question} = props;
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const User = useSelector((state) => state.currentUserReducer);
     const handleDeletAnswer = (e,answerId) =>{
         e.preventDefault();
         const del = window.confirm("Are you sure to delete the answer?");
         if(del)
         {
-            dispatch(deleteAnswer(question._id,answerId,question.noOfAnswer-1));
-            alert('Answer Deleted');
+            dispatch(deleteAnswer(question._id,answerId,question.noOfAnswer-1,navigate));
         }
     }
   return (

@@ -17,19 +17,17 @@ const ChatBotQA = (props) => {
                     ))}
                 </p>
             </div>
+                <div className="message bot-message">
+                    <p>
+                        {atext.map((line, index) => (
+                            <React.Fragment key={index}>
+                                {line}
+                                {index !== atext.length - 1 && <br />}
+                            </React.Fragment>
+                        ))}
+                    </p>
+                </div>
 
-            <div className="message bot-message">
-                <p>
-                    {atext.map((line, index) => (
-                        <React.Fragment key={index}>
-                            {line}
-                            {index !== atext.length - 1 && <br />}
-                        </React.Fragment>
-                    ))}
-                </p>
-            </div>
-
-            
         </>
     )
 }

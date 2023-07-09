@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { askchatbot, deleteConversation } from '../../../actions/bot'
 import ChatBotQA from './ChatBotQA'
+import { toast } from 'react-toastify'
 
 const ChatBot = () => {
   const navigate = useNavigate();
@@ -41,10 +42,16 @@ const ChatBot = () => {
     e.preventDefault();
     if (User === null) {
       navigate('/auth');
-      alert("Login to ask chatbot");
+      toast.warning("Login to ask chatbot", {
+        position: toast.POSITION.TOP_CENTER,
+        theme:'colored'
+      });
     }
     else if (question.length === 0) {
-      alert("Write something to ask");
+      toast.warning("Write something to ask", {
+        position: toast.POSITION.TOP_CENTER,
+        theme:'colored'
+      });
     }
     else {
       setQtoSend(question);
@@ -58,14 +65,19 @@ const ChatBot = () => {
     e.preventDefault();
     if (User === null) {
       navigate('/auth');
-      alert("Login to start the conversation");
+      toast.warning("Login to start the conversation", {
+        position: toast.POSITION.TOP_CENTER,
+        theme:'colored'
+      });
     }
     else if (currentUserData.chatbot.length === 0) {
-      alert("There is nothing to delete");
+      toast.warning("There is nothing to delete", {
+        position: toast.POSITION.TOP_CENTER,
+        theme:'colored'
+      });
     }
     else {
       dispatch(deleteConversation(User?.result._id));
-      alert("Deleted Successfully");
     }
   }
   return (

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 import '../ProfilePage/UserPost.css'
 import './AllPost.css'
@@ -18,7 +19,10 @@ const AllPost = () => {
     e.preventDefault();
     if(currentUser === null)
     {
-      alert('Please Login first');
+      toast.warning("Please Login first", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'colored'
+    });
       navigate('/auth');
     }
     else{
