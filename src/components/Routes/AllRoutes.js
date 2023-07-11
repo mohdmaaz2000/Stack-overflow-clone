@@ -16,6 +16,8 @@ import ChatBot from '../Pages/Chatbot/ChatBot';
 import Verification from '../Pages/Auth/Verification';
 import AllPost from '../Pages/Posts/AllPost';
 import UploadPost from '../Pages/UploadPost/UploadPost';
+import SharePost from '../Pages/SharePost/SharePost';
+
 
 const AllRoutes = () => {
   return (
@@ -31,8 +33,9 @@ const AllRoutes = () => {
         <Route exact path='/users/:id' element={<ProfilePage />} />
         <Route exact path='/chatbot' element={<ChatBot />} />
         <Route exact path='/auth-verfify' element={<Verification />} />
-        <Route exat path='/post' element={<AllPost />} />
-        <Route exat path='/uploadPost' element={<UploadPost/>} /> 
+        <Route exact path='/post' element={<AllPost />} />
+        <Route exact path='/post/:id' element={<SharePost />} />
+        <Route exact path='/uploadPost' element={<UploadPost/>} /> 
       </Routes>
     </>
   )

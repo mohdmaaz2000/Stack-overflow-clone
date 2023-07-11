@@ -69,3 +69,24 @@
     color: #39739d;
     border-radius: 2px;
 }
+
+@media (max-width: 1000px)
+{
+    .right-sidebar {
+        float: none;
+        width: calc(100% - 24px);
+        margin: 40px 0px 15px 0px;
+        font-size: 15px;
+    }
+    .right-sidebar-div-2{
+        justify-content: flex-start;
+    }
+    .widget-tags-div {
+        gap: 2px;
+    }
+}
+@media (max-width: 650px){
+    .right-sidebar{
+        width: 100%;
+    }
+}

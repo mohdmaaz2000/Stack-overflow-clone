@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../../assets/logo.jpg'
 import search from '../../assets/search.svg'
+import logo2 from '../../assets/favicon.png'
 import Avatar from '../Avatar/Avatar'
 import './Navbar.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -18,6 +19,17 @@ const Navbar = () => {
   const users = useSelector((state) => state.userReducer);
   const [currentProfile, setCurrentProfile] = useState(null);
   const navigate = useNavigate();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+     // subscribe to window resize event "onComponentDidMount"
+     window.addEventListener("resize", handleResizeWindow);
+     return () => {
+       // unsubscribe "onComponentDestroy"
+       window.removeEventListener("resize", handleResizeWindow);
+     };
+   }, []);
 
   const handleLogOut = () => {
     dispatch({ type: "LOGOUT" });
@@ -25,7 +37,7 @@ const Navbar = () => {
     dispatch(setCurrentUser(null));
     toast.success("Logged out successfully", {
       position: toast.POSITION.TOP_CENTER,
-      theme:'colored'
+      theme: 'colored'
     });
   }
   useEffect(() => {
@@ -50,7 +62,7 @@ const Navbar = () => {
     if (User === null) {
       toast.warning("Please Login first", {
         position: toast.POSITION.TOP_CENTER,
-        theme:'colored'
+        theme: 'colored'
       });
       navigate('/auth');
     }
@@ -64,7 +76,7 @@ const Navbar = () => {
     if (User === null) {
       toast.warning("Please Login first", {
         position: toast.POSITION.TOP_CENTER,
-        theme:'colored'
+        theme: 'colored'
       });
       navigate('/auth');
     }
@@ -72,16 +84,20 @@ const Navbar = () => {
       navigate('/post');
     }
   }
-  
+
   return (
     <nav className='main-nav'>
       <div className="navbar">
         <Link to="/" className='nav-item nav-logo'>
-          <img src={logo} alt="logo" width="150" />
+          {width > 800 ? (<img src={logo} alt="logo" width={150}/>)
+           :
+           (<img src={logo2} alt="logo" />)
+          }
+          
         </Link>
-        <Link to="/chatbot" className='nav-item nav-btn' onClick={handleClick}>Ask chatbot</Link>
+        <Link to="/chatbot" className='nav-item nav-btn' onClick={handleClick}>Chatbot</Link>
         <Link to="/post" className='nav-item nav-btn' onClick={handleClickPost}>Posts</Link>
-        <Link to="/" className='nav-item nav-btn'>For Teams</Link>
+        <Link to="/" className='nav-item nav-btn'>Search</Link>
 
         <form >
           <input type="text" placeholder='Search...' />
@@ -98,9 +114,9 @@ const Navbar = () => {
                   <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.image}`} className='profilePic' alt='img' />
                 </Link>
               </> :
-                <>
+                <div className='nav-avatar'>
                   <Avatar py="7px" px="10px" bgColor='#009dff' radius='48%' color='white'><Link to={`/users/${User?.result?._id}`} style={{ textDecoration: 'none', color: 'white' }}>{User?.result?.name.charAt(0).toUpperCase()}</Link></Avatar>
-                </>
+                </div>
             }
             <button className='nav-item nav-links' onClick={handleLogOut}>Log Out</button>
           </>

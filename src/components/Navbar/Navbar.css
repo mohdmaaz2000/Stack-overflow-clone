@@ -1,5 +1,4 @@
-.main-nav
-{
+.main-nav {
     min-height: 50px;
     width: 100%;
     margin: 0px auto;
@@ -15,8 +14,7 @@
     align-items: center;
 }
 
-.navbar
-{
+.navbar {
     height: 100%;
     min-width: 85%;
     display: flex;
@@ -24,12 +22,15 @@
     align-items: center;
 }
 
-.nav-logo
-{
+.nav-logo {
     padding: 5px 25px;
+
 }
-.nav-item
-{
+.nav-logo img{
+    width: 150px;
+}
+
+.nav-item {
     margin: 0px 3px;
     font-size: small;
     font-weight: 500;
@@ -38,25 +39,23 @@
     transition: 0.2s;
 }
 
-.nav-btn
-{
+.nav-btn {
     cursor: pointer;
     border-radius: 20px;
     padding: 10px 20px;
 }
 
-.nav-btn:hover{
+.nav-btn:hover {
     background-color: rgb(226, 226, 226);
 }
 
-.navbar form{
+.navbar form {
     flex-grow: 1;
     padding: 0px 12px;
     position: relative;
 }
 
-.navbar form input
-{
+.navbar form input {
     min-width: 90%;
     margin: 0%;
     padding: 8px 10px 8px 32px;
@@ -65,14 +64,13 @@
     border-radius: 3px;
 }
 
-.search-icon
-{
+.search-icon {
     position: absolute;
     left: 23px;
     top: 8px;
 }
 
-.nav-links{
+.nav-links {
     padding: 7px 13px;
     border: 1px solid blue;
     border-radius: 3px;
@@ -80,13 +78,72 @@
     background-color: #e7f8fe;
 }
 
-.nav-links:hover{
+.nav-links:hover {
     background-color: rgb(226, 226, 226);
 }
 
-.profilePic
-{
+.profilePic {
     height: 35px;
     width: 35px;
     border-radius: 48%;
+
+}
+
+@media (max-width: 1140px) {
+    .navbar form input {
+        min-width: 80%;
+    }
+}
+
+@media (max-width : 850px) {
+    .main-nav {
+        justify-content: flex-start;
+    }
+
+    .profilePic {
+        margin-right: 3px;
+    }
+    .nav-item{
+        margin: 0px 0px;
+    }
+    .nav-logo {
+        padding: 5px 15px;
+    }
+    .nav-avatar{
+        margin-right: 3px;
+    }
+}
+
+@media (max-width : 800px){
+    .nav-logo img{
+        width: 36px;
+    }
+}
+@media (max-width:700px)
+{
+    
+}
+
+@media (max-width : 650px){
+    .nav-logo{
+        padding: 5px 10px;
+    }
+    .navbar{
+        display: grid;
+        grid-template-columns: auto auto auto auto auto auto auto;
+        gap: 0px;
+    }
+    .nav-item{
+        flex-shrink: 1;
+    }
+    .navbar form input{
+        max-width: 150px;
+        flex-shrink: 2;
+    }
+}
+
+@media (max-width : 600px){
+    .navbar form{
+        display: none;
+    }
 }

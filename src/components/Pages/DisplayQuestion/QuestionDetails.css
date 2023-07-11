@@ -131,3 +131,10 @@
     line-height: 18px;
     white-space: pre-line;
 }
+
+@media (max-width : 1000px){
+    .question-details-page{
+        float: none;
+        width: calc(100% - 24px);
+    }
+}

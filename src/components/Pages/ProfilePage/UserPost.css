@@ -58,38 +58,39 @@
 }
 
 .like-comment {
-    margin-top: 20px;
+    margin-top: 10px;
     display: flex;
+    justify-content: flex-start;
+    gap: 25px;
 }
 
-.like {
+.like-section, .comment-section, .share-section, .delete-section {
     display: flex;
     align-items: center;
-    margin-right: 6px;
-}
-
-.like-image-ico{
-    width: 22px;
+    gap: 7px;
     cursor: pointer;
 }
-.like button, .comment-section button {
+
+.like-image-ico {
+    width: 22px;
+}
+.delete-image-ico{
+    width: 15px;
+}
+
+.like-section button, .comment-section button {
     background-color: #fff;
     border: none;
     cursor: pointer;
 }
 
-.comment-section {
-    display: flex;
-    align-items: center;
-    margin-left: 30px;
-}
-
-.like span, .comment-section span {
-    margin-left: 10px;
+.like-section span, .comment-section span,.delete-section span,.share-section span {
+    cursor: pointer;
     color: #999;
 }
 
 @media (max-width:1000px) {
+
     .post-image,
     .post-video {
         height: 350px;
@@ -98,6 +99,7 @@
 }
 
 @media (max-width: 800px) {
+
     .post-image,
     .post-video {
         height: 250px;
@@ -130,7 +132,7 @@
     }
 
     .like-comment {
-        margin-top: 10px;
+        margin-top: 5px;
     }
 
     .like button {
@@ -139,5 +141,30 @@
 
     .like span {
         font-size: 14px;
+    }
+    .like-image-ico {
+        width: 17px;
+    }
+    .delete-image-ico{
+        width: 12px;
+    }
+    .like-section span, .comment-section span,.delete-section span,.share-section span{
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 425px)
+{
+    .like-comment{
+        margin-top: 3px;
+    }
+    .like-image-ico {
+        width: 15px;
+    }
+    .delete-image-ico{
+        width: 10px;
+    }
+    .like-section span, .comment-section span,.delete-section span,.share-section span{
+        font-size: 11px;
     }
 }

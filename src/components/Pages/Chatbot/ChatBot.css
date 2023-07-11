@@ -49,7 +49,7 @@
   box-sizing: border-box;
   border-radius: 12px 12px 12px 0px;
   border: double 2px transparent;
-  background-image: linear-gradient(white,white),
+  background-image: linear-gradient(white,#e2dfdf),
   linear-gradient(259.96deg, rgb(66, 133, 244) 25.66%, rgb(216, 68, 66) 55.24%, rgb(247, 165, 14) 84.82%);
   background-origin: border-box;
   background-clip: content-box,border-box;
@@ -93,9 +93,11 @@
 .chatbot-input input[type=text] {
   padding: 10px;
   border: none;
-  border-radius: 5px 0 0 5px;
+  border-radius: 5px 5px 5px 5px;
   box-sizing: border-box;
   font-size: 14px;
+  float: left;
+  width: 80%;
 }
 
 .chatbot-input button {
@@ -108,6 +110,8 @@
   transition: 0.3s;
   cursor: pointer;
   font-size: 14px;
+  float: right;
+  width: 20%;
 }
 
 .deleteChat {
@@ -161,5 +165,18 @@
 @media screen and (max-width: 600px) {
   .chatbot-input input[type=text] {
     width: 80%;
+  }
+  .chatbot-input button {
+    width: 100px;
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 600px){
+  .chatbot-input input[type=text] {
+    width: 78%;
+  }
+  .chatbot-input button {
+    width: 20%;
   }
 }

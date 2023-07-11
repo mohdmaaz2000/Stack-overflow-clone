@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { toast } from 'react-toastify';
+import copy from 'copy-to-clipboard';
 
 
 import { deletePost, likePost } from '../../../actions/post';
@@ -11,6 +12,8 @@ import PostComment from './PostComment';
 import like from '../../../assets/like.svg'
 import liked from '../../../assets/like-solid.svg'
 import comment from '../../../assets/comment-post.svg'
+import share from '../../../assets/share.svg'
+import deleteImg from '../../../assets/trash-solid.svg'
 import './PostComment.css'
 
 const Post = (props) => {
@@ -23,33 +26,47 @@ const Post = (props) => {
     const [showComment, setShowComment] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
 
+    useEffect(()=>{
+        if(props?.showComment === true)
+        {
+            setShowComment(!showComment);
+        }
+    },[]) // eslint-disable-line react-hooks/exhaustive-deps 
     const handleClickRoute = (e) => {
         e.preventDefault();
         setShowComment(!showComment);
     }
 
-    const handleDeletePost = (e) =>{
+    const handleDeletePost = (e) => {
         e.preventDefault();
         const del = window.confirm("Are you sure want to delete the post");
-        if(del){
+        if (del) {
             dispatch(deletePost(data._id));
         }
     }
 
-    const handleLikePost = (e) =>{
+    const handleLikePost = (e) => {
         e.preventDefault();
-        if(currentUser === null)
-        {
+        if (currentUser === null) {
             toast.warning("Login to like the post", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
-              });
+            });
             navigate('/auth');
         }
-        else{
-            dispatch((likePost(data._id,currentUser?.result._id)));
+        else {
+            dispatch((likePost(data._id, currentUser?.result._id)));
         }
+    }
+
+    const handleShare = () => {
+        copy(`${process.env.REACT_APP_CLIENT}` + location.pathname +`/` + data._id);
+        toast.success("Link copied to clipboard", {
+            position: toast.POSITION.TOP_CENTER,
+            theme: 'colored'
+        });
     }
     const divStyle = {
         background: `url('${fileUrl}')`,
@@ -64,16 +81,16 @@ const Post = (props) => {
                     {
                         currentProfile?.image ?
                             <>
-                            <Link to={`/users/${currentProfile._id}`}>
-                                <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile?.image}`} alt="user profile" />
+                                <Link to={`/users/${currentProfile._id}`}>
+                                    <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile?.image}`} alt="user profile" />
                                 </Link>
                             </>
                             :
                             <div className='user-avatar'>
-                                <Link to={`/users/${currentProfile?._id}`} style={{textDecoration:"none"}}>
-                                <Avatar py="16px" px="20px" bgColor='#009dff' radius='48%' color='white' fSize='20px'>
-                                    {currentProfile?.name.charAt(0).toUpperCase()}
-                                </Avatar>
+                                <Link to={`/users/${currentProfile?._id}`} style={{ textDecoration: "none" }}>
+                                    <Avatar py="16px" px="20px" bgColor='#009dff' radius='48%' color='white' fSize='20px'>
+                                        {currentProfile?.name.charAt(0).toUpperCase()}
+                                    </Avatar>
                                 </Link>
                             </div>
                     }
@@ -97,8 +114,8 @@ const Post = (props) => {
                         </div>
                     }
                 </div>
-                <div className="like-comment">
-                    <div className="like" onClick={handleLikePost}>
+                <div className="like-comment" >
+                    <div className="like-section" onClick={handleLikePost}>
                         {
                             userLiked === true ?
                                 <img src={liked} alt="like" className='like-image-ico' />
@@ -112,20 +129,27 @@ const Post = (props) => {
                             }
                         </span>
                     </div>
-                    <div className="comment-section">
-                        <img src={comment} alt="comment" className='like-image-ico' onClick={handleClickRoute} />
+                    <div className="comment-section" onClick={handleClickRoute}>
+                        <img src={comment} alt="comment" className='like-image-ico' />
 
                         <span>{data?.comments.length}{" "}
                             {
                                 data.comments.length <= 1 ? <>comment</> : <>comments</>
                             }
                         </span>
-                        {
-                            currentUser?.result?._id === data.userPostedId && <div style={{ marginLeft: "inherit", marginTop: "3px" }}>
-                                <span className='delete-post-btn' onClick={handleDeletePost}>Delete Post</span>
-                            </div>
-                        }
+                    </div>
+                    <div className='share-section' onClick={handleShare}>
+                        <img src={share} alt="share" className='like-image-ico' />
+                        <span>Share</span>
 
+                    </div>
+                    <div className='delete-section' onClick={handleDeletePost}>
+                        {
+                            currentUser?.result?._id === data.userPostedId && <>
+                                <img src={deleteImg} alt="Delete" className='delete-image-ico' />
+                                <span className='delete-post-btn' >Delete Post</span>
+                            </>
+                        }
                     </div>
                 </div>
 

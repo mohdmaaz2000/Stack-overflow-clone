@@ -61,3 +61,18 @@
     font-size: 12px;
     cursor: pointer;
 }
+
+@media screen and (max-width: 700px)
+{
+    .home-container-2{
+        width: calc(100% - 10px);
+        border-left: none;
+    }
+}
+
+@media screen and (max-width: 700px){
+    .home-container-2{
+        width: 100%;
+        
+    }
+}
