@@ -20,6 +20,7 @@ const Navbar = () => {
   const [currentProfile, setCurrentProfile] = useState(null);
   const navigate = useNavigate();
   const [width, setWidth] = useState(window.innerWidth);
+  const [searchInp,setSearchInp] = useState('');
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
@@ -85,6 +86,11 @@ const Navbar = () => {
     }
   }
 
+  const handleGlobalSearch = (e)=>{
+    e.preventDefault();
+    navigate(`/Question?search=${searchInp}`)
+  }
+
   return (
     <nav className='main-nav'>
       <div className="navbar">
@@ -97,10 +103,10 @@ const Navbar = () => {
         </Link>
         <Link to="/chatbot" className='nav-item nav-btn' onClick={handleClick}>Chatbot</Link>
         <Link to="/post" className='nav-item nav-btn' onClick={handleClickPost}>Posts</Link>
-        <Link to="/" className='nav-item nav-btn'>Search</Link>
+        <Link to="/people" className='nav-item nav-btn'>People</Link>
 
-        <form >
-          <input type="text" placeholder='Search...' />
+        <form onSubmit={handleGlobalSearch}>
+          <input type="text" placeholder='Search...' onChange={(e)=>setSearchInp(e.target.value)}/>
           <img src={search} alt="Search" width={18} className='search-icon' />
         </form>
 

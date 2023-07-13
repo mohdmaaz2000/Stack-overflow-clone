@@ -117,3 +117,22 @@
         padding: 8px;
     }
 }
+@media (max-width: 445px){
+    .like-comment{
+        gap: 13px;
+    }
+}
+@media (max-width: 405px) {
+    .delete-section span,.share-section span {
+        display: none;
+    }
+    .like-comment{
+        gap: 25px;
+    }
+}
+
+@media (max-width: 315px){
+    .comment-section span{
+        display: none;
+    }
+}

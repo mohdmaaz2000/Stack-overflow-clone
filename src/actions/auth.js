@@ -8,13 +8,17 @@ export const signup = (authData, navigate) => async (dispatch) => {
         if (data.error === true) {
             toast.error(data.message, {
                 position: toast.POSITION.TOP_CENTER,
-                theme:'colored'
-              });
+                theme: 'colored'
+            });
         }
         else {
             dispatch({ type: 'AUTH', data });
             dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
             navigate('/');
+            toast.success("Signed up successfully", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
         }
     } catch (error) {
         console.log(error);
@@ -27,12 +31,16 @@ export const login = (authData, navigate) => async (dispatch) => {
         if (data.error === true) {
             toast.error(data.message, {
                 position: toast.POSITION.TOP_CENTER,
-                theme:'colored'
-              });
+                theme: 'colored'
+            });
         } else {
             dispatch({ type: 'AUTH', data });
             dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
             navigate('/');
+            toast.success("Logged in successfully", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
         }
     } catch (error) {
         console.log(error);

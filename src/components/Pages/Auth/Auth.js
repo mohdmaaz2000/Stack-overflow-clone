@@ -28,6 +28,7 @@ const Auth = () => {
         position: toast.POSITION.TOP_CENTER,
         theme: 'colored'
       });
+      return;
     }
     if (isSignup) {
       if (!name) {
@@ -38,19 +39,11 @@ const Auth = () => {
       }
       else {
         dispatch(signup({ name, email, password }, navigate));
-        toast.success("Signed up successfully", {
-          position: toast.POSITION.TOP_CENTER,
-          theme:'colored'
-        });
       }
 
     }
     else {
       dispatch(login({ email, password }, navigate));
-      toast.success("Logged in successfully", {
-        position: toast.POSITION.TOP_CENTER,
-        theme:'colored'
-      });
     }
   }
   return (

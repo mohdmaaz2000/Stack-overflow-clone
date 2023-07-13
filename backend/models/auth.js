@@ -30,6 +30,12 @@ const userSchema = new Schema({
     },
     profilePhoto:{
         type:String
+    },
+    followers:{
+        type : [String]
+    },
+    following:{
+        type:[String]
     }
 })
 

@@ -1,62 +1,91 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import Questions from './QuestionsList';
 import './MainHomePage.css'
 import search from '../../assets/search.svg';
 
+
 const MainHomePage = () => {
+  // const {profileId} = props;
   let user = useSelector((state) => state.currentUserReducer);
   const navigate = useNavigate();
   const location = useLocation();
-  const questionList = useSelector(state => state.questionReducer);
-  const [width, setWidth] = useState(window.innerWidth)
+  let Allquestions = useSelector(state => state.questionReducer);
+
+  const [width, setWidth] = useState(window.innerWidth);
+  const [questionList, setQuestionList] = useState([]);
+  const [searchInp, setSearchInp] = useState('');
+
+  // for search question
+  const searchParams = new URLSearchParams(location.search);
+  const searchTerm = searchParams.get('search');
+
+  useEffect(() => {
+    if (searchTerm === null) {
+      setQuestionList(Allquestions.data);
+    }
+    else {
+      setQuestionList(Allquestions.data.filter((question) => question.questionTitle.includes(searchTerm)));
+    }
+  }, [searchTerm, Allquestions])
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
-    // subscribe to window resize event "onComponentDidMount"
     window.addEventListener("resize", handleResizeWindow);
     return () => {
-      // unsubscribe "onComponentDestroy"
       window.removeEventListener("resize", handleResizeWindow);
     };
   }, []);
+
   const handleClick = () => {
     if (user === null) {
-      alert("Please login first");
+      toast.warning("Please Login first", {
+        position: toast.POSITION.TOP_CENTER,
+        theme: 'colored'
+      });
       navigate('/auth')
     }
     else {
       navigate('/AskQuestion');
     }
   }
+
+  const handleGlobalSearch = (e) => {
+    e.preventDefault();
+    navigate(`/Question?search=${searchInp}`)
+  }
+
   return (
     <div className='main-bar'>
       <div className="main-bar-header">
         {
-          location.pathname === '/' ? <h1>Top Questions </h1> : <h1>All Questions</h1>
+          searchTerm !== null ? <h1>Search Results</h1>
+            : location.pathname === '/' ? <h1>Top Questions </h1> : <h1>All Questions</h1>
         }
+
         <button onClick={handleClick} className='ask-btn'>Ask Question</button>
       </div>
       {
         width < 600 && <div className='question-search'>
-          <form >
-            <img src={search} alt="Search" width={18} className='search-question-icon'/>
-            <input type="text" placeholder='Search...' ></input>
+          <form onSubmit={handleGlobalSearch}>
+            <img src={search} alt="Search" width={18} className='search-question-icon'  />
+            <input type="text" placeholder='Search...' onChange={(e) => setSearchInp(e.target.value)}></input>
           </form>
 
         </div>
       }
       <div>
         {
-          questionList.length === 0 ?
+          questionList?.length === 0 ?
             <h3 style={{ textAlign: 'center' }}>Loading...</h3> :
             <>
-              <p>{questionList.data.length} questions </p>
+              <p>{questionList?.length} questions </p>
               <>
                 {
-                  questionList.data.toReversed().map((element) => (
+                  questionList?.toReversed().map((element) => (
                     <Questions question={element} key={element._id} />
                   ))
                 }

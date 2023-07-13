@@ -24,7 +24,7 @@ const QuestionsList = (props) => {
           }
         </div>
         <div className="display-time">
-          <p>Asked on {moment(props.question.askedOn).fromNow()} by {props.question.userPosted}</p>
+          <p>Asked {moment(props.question.askedOn).fromNow()} by {props.question.userPosted}</p>
         </div>
       </div>
       </div>

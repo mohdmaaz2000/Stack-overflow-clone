@@ -17,6 +17,7 @@ import Verification from '../Pages/Auth/Verification';
 import AllPost from '../Pages/Posts/AllPost';
 import UploadPost from '../Pages/UploadPost/UploadPost';
 import SharePost from '../Pages/SharePost/SharePost';
+import People from '../Pages/People/People';
 
 
 const AllRoutes = () => {
@@ -35,7 +36,8 @@ const AllRoutes = () => {
         <Route exact path='/auth-verfify' element={<Verification />} />
         <Route exact path='/post' element={<AllPost />} />
         <Route exact path='/post/:id' element={<SharePost />} />
-        <Route exact path='/uploadPost' element={<UploadPost/>} /> 
+        <Route exact path='/uploadPost' element={<UploadPost />} />
+        <Route exact path='/people' element={<People />} />
       </Routes>
     </>
   )

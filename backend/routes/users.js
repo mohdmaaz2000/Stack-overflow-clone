@@ -12,7 +12,9 @@ route.post('/login',auth.login);
 route.get('/allUsers',users.fetchAllUsers);
 route.patch('/updateUser/:id',users.updateUser);
 route.patch('/updateProfile/:id',uploadProfile.single('image'),users.updateProfile);
-route.patch('/removeProfile/:id',users.deletProfile);
+route.patch('/removeProfile/:id',users.deleteProfile);
+
+route.patch('/follow/:id',users.follow);
 
 
 module.exports = route

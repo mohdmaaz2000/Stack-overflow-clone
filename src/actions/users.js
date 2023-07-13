@@ -87,3 +87,22 @@ export const deleteProfile = (id,navigate) => async (dispatch) => {
         console.log(error);
     }
 }
+
+export const followRequest = (id,userFollowed) => async(dispatch)=>{
+    try {
+        const {data} = await api.followRequest(id,userFollowed);
+        if(data.error === true)
+        {
+            toast.error(data.message, {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+              });
+        }
+        else{
+            dispatch({type:'FOLLOW_REQUEST',payload:data});
+            dispatch(fetchAllUsers());
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}

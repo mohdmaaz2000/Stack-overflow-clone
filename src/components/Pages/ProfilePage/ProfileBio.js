@@ -24,6 +24,7 @@ const ProfileBio = (props) => {
                         
                     )
                 }
+                <hr />
             </div>
             <div>
                 {
@@ -37,6 +38,8 @@ const ProfileBio = (props) => {
                     )
                 }
             </div>
+            <br />
+            <hr />
         </div>
     )
 }

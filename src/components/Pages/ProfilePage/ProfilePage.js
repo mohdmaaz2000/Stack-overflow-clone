@@ -2,16 +2,18 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { faBirthdayCake, faPen } from '@fortawesome/free-solid-svg-icons';
+
+import { followRequest } from '../../../actions/users';
 
 import LeftSidebar from '../../LeftSidebar/LeftSidebar'
 import Avatar from '../../Avatar/Avatar';
 import EditProfileForm from './EditProfileForm';
 import ProfileBio from './ProfileBio';
-import UserPost from './UserPost';
 
 import './Profile.css'
+import ProfileList from './ProfileList';
 
 const ProfilePage = () => {
 
@@ -21,7 +23,12 @@ const ProfilePage = () => {
     const currentUser = useSelector((state) => state.currentUserReducer);
     const currentUserData = users?.filter((user) => user._id === currentUser?.result?._id )[0];
     const [Switch,setSwitch] = useState(false);
+    const dispatch = useDispatch();
 
+    const handleFollow = (e)=>{
+        e.preventDefault();
+        dispatch(followRequest(id,currentUser?.result._id));
+    }
     return (
         <div className='home-container-1'>
             <LeftSidebar />
@@ -32,7 +39,7 @@ const ProfilePage = () => {
                             {   currentProfile?.image ? <>
                                 <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.image}`} alt="prifile" className='user-details-img'/>
                                 </>:
-                                <Avatar bgColor={'purple'} color={'white'} fSize={'50px'} px={'40px'} py={'30px'}>{currentProfile?.name.charAt(0).toUpperCase()}
+                                <Avatar bgColor={'purple'} color={'white'} fSize={'50px'} px={'40px'} py={'30px'}>{currentProfile?.name?.charAt(0).toUpperCase()}
                                 </Avatar>
 
                             }
@@ -49,13 +56,23 @@ const ProfilePage = () => {
                             )
                         }
                     </div>
+                        {
+                            currentUser?.result._id === id ?<></>:
+                            currentProfile?.followers.includes(currentUser?.result._id)?
+                            <>
+                            <button className="follow-button-profile following-btn-profile" onClick={handleFollow}>Following</button></>
+                            :
+                            <><button className="follow-button-profile" onClick={handleFollow}>Follow</button> </>
+                        }
                     <>
+                    <hr />
                     {
                         Switch ? (
                             <EditProfileForm currentUser={currentUserData} setSwitch={setSwitch} />
                         ):(<>
                             <ProfileBio currentProfile={currentProfile}/>
-                            <UserPost currentUser={currentUser} currentProfile={currentProfile}/>
+                            <ProfileList currentUser={currentUser} currentProfile={currentProfile}/>
+                            {/* <UserPost currentUser={currentUser} currentProfile={currentProfile}/> */}
                             </>
                         )
                     }

@@ -147,3 +147,8 @@
         display: none;
     }
 }
+@media (max-width : 410px){
+    .nav-btn{
+        padding: 10px 10px;
+    }
+}
