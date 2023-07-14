@@ -25,10 +25,10 @@ const MainHomePage = () => {
 
   useEffect(() => {
     if (searchTerm === null) {
-      setQuestionList(Allquestions.data);
+      setQuestionList(Allquestions?.data);
     }
     else {
-      setQuestionList(Allquestions.data.filter((question) => question.questionTitle.includes(searchTerm)));
+      setQuestionList(Allquestions?.data?.filter((question) => question.questionTitle.includes(searchTerm)));
     }
   }, [searchTerm, Allquestions])
 
