@@ -38,11 +38,13 @@ const Auth = () => {
         });
       }
       else {
+        // navigate(`/auth-verify?email=${email}`);
         dispatch(signup({ name, email, password }, navigate));
       }
 
     }
     else {
+      // navigate(`/auth-verify?email=${email}`);
       dispatch(login({ email, password }, navigate));
     }
   }

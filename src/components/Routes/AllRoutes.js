@@ -33,7 +33,7 @@ const AllRoutes = () => {
         <Route exact path='/users' element={<Users />} />
         <Route exact path='/users/:id' element={<ProfilePage />} />
         <Route exact path='/chatbot' element={<ChatBot />} />
-        <Route exact path='/auth-verfify' element={<Verification />} />
+        <Route exact path='/auth-verify' element={<Verification />} />
         <Route exact path='/post' element={<AllPost />} />
         <Route exact path='/post/:id' element={<SharePost />} />
         <Route exact path='/uploadPost' element={<UploadPost />} />

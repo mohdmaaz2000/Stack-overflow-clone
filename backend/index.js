@@ -15,8 +15,8 @@ app.use(cors());
 
 // to use the static file
 app.use(express.static('public'));
-
 dotenv.config();
+
 createConnection();
 
 const PORT = process.env.PORT || 5000;

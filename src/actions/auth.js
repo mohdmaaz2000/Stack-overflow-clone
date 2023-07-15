@@ -13,9 +13,9 @@ export const signup = (authData, navigate) => async (dispatch) => {
         }
         else {
             dispatch({ type: 'AUTH', data });
-            dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
-            navigate('/');
-            toast.success("Signed up successfully", {
+            // dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+            navigate(`/auth-verify?email=${authData.email}`);
+            toast.success("Verify your email", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
             });
@@ -35,13 +35,60 @@ export const login = (authData, navigate) => async (dispatch) => {
             });
         } else {
             dispatch({ type: 'AUTH', data });
-            dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
-            navigate('/');
-            toast.success("Logged in successfully", {
+            // dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+            navigate(`/auth-verify?email=${authData.email}`);
+            toast.success("Verify your email", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
             });
         }
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const verifyOtp = (verifyData, navigate) => async (dispatch) => {
+    try {
+        const { data } = await api.verifyOtp(verifyData);
+        if (data.error === true) {
+            toast.error(data.message, {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
+        }
+        else {
+            dispatch({ type: 'VERIFY_EMAIL', data });
+            dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
+            navigate('/');
+            toast.success("Logged in Successfully", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const sendMail = (mailData,setOtpSend) => async (dispatch) => {
+    try {
+        const { data } = await api.sendMail(mailData);
+        if (data.error === true) {
+            toast.error(data.error, {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
+        }
+        else {
+            dispatch({ type: 'SEND_MAIL', payload: data });
+            toast.success("Otp send successfully", {
+                position: toast.POSITION.TOP_CENTER,
+                theme: 'colored'
+            });
+            setOtpSend(true);
+        }
+
     } catch (error) {
         console.log(error);
     }

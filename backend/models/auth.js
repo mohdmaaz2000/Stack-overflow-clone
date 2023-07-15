@@ -22,22 +22,22 @@ const userSchema = new Schema({
         answer: String
     }],
     otp: {
-        type: String
+        type: String,
     },
     verified: {
         type: Boolean,
         default: false
     },
-    profilePhoto:{
-        type:String
+    profilePhoto: {
+        type: String
     },
-    followers:{
-        type : [String]
+    followers: {
+        type: [String]
     },
-    following:{
-        type:[String]
+    following: {
+        type: [String]
     }
-})
+}, { timestamps: true })
 
 const user = mongoose.model("User", userSchema);
 module.exports = user;

@@ -7,7 +7,8 @@ const users = require('../controllers/fetchUsers');
 
 route.post('/signup',auth.signup);
 route.post('/login',auth.login);
-
+route.post('/resendMail',auth.resendEmail);
+route.post('/verifyEmail',auth.verifyEmail);
 
 route.get('/allUsers',users.fetchAllUsers);
 route.patch('/updateUser/:id',users.updateUser);
