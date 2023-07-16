@@ -18,6 +18,8 @@ import AllPost from '../Pages/Posts/AllPost';
 import UploadPost from '../Pages/UploadPost/UploadPost';
 import SharePost from '../Pages/SharePost/SharePost';
 import People from '../Pages/People/People';
+import Subscription from '../Pages/Subscription/Subscription';
+import About from '../Pages/About/About';
 
 
 const AllRoutes = () => {
@@ -38,6 +40,8 @@ const AllRoutes = () => {
         <Route exact path='/post/:id' element={<SharePost />} />
         <Route exact path='/uploadPost' element={<UploadPost />} />
         <Route exact path='/people' element={<People />} />
+        <Route exact path='/subscription' element={<Subscription/>} />
+        <Route exact path='/about' element={<About />} />
       </Routes>
     </>
   )

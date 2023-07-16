@@ -20,7 +20,6 @@ const QuestionDetails = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-
   const handleSubmit = (e, ansLength) => {
     e.preventDefault();
     if (User === null) {
@@ -29,7 +28,7 @@ const QuestionDetails = () => {
         theme: 'colored'
       });
 
-      navigate('/auth');
+      navigate(`/auth?returnPage=${location.pathname.substring(1)}`);
     }
     else {
       if (answer === '') {

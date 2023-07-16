@@ -1,9 +1,8 @@
 import moment from 'moment/moment';
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-
 import { followRequest } from '../../../actions/users';
 
 import Avatar from '../../Avatar/Avatar';
@@ -13,6 +12,7 @@ const PeopleDetails = (props) => {
     const navigate = useNavigate();
     const currentUser = useSelector((state) => state.currentUserReducer);
     const dispatch = useDispatch();
+    const location = useLocation();
     const handleRoute = (e) => {
         e.preventDefault();
 
@@ -22,7 +22,7 @@ const PeopleDetails = (props) => {
                     position: toast.POSITION.TOP_CENTER,
                     theme: 'colored'
                 });
-                navigate('/auth');
+                navigate(`/auth?returnPage=${location.pathname.substring(1)}`);
             }
             else {
                 dispatch(followRequest(data?._id, currentUser?.result?._id));

@@ -4,7 +4,7 @@ import logo from '../../../assets/favicon.png'
 import AboutAuth from './AboutAuth'
 import { login, signup } from '../../../actions/auth'
 import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 
@@ -17,6 +17,11 @@ const Auth = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const returnPage = searchParams.get('returnPage');
+
   const handleClick = () => {
     setIsSighnup(!isSignup);
   }
@@ -39,13 +44,13 @@ const Auth = () => {
       }
       else {
         // navigate(`/auth-verify?email=${email}`);
-        dispatch(signup({ name, email, password }, navigate));
+        dispatch(signup({ name, email, password }, navigate,returnPage));
       }
 
     }
     else {
       // navigate(`/auth-verify?email=${email}`);
-      dispatch(login({ email, password }, navigate));
+      dispatch(login({ email, password }, navigate,returnPage));
     }
   }
   return (

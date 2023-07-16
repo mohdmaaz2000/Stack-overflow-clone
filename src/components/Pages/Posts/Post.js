@@ -54,7 +54,7 @@ const Post = (props) => {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
             });
-            navigate('/auth');
+            navigate(`/auth?returnPage=${location.pathname.substring(1)}`);
         }
         else {
             dispatch((likePost(data._id, currentUser?.result._id)));

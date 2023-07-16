@@ -10,6 +10,7 @@ const Verification = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const searchEmail = searchParams.get('email');
+    const returnPage = searchParams.get('returnPage');
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [otp, setOtp] = useState('');
@@ -26,7 +27,7 @@ const Verification = () => {
             });
         }
         else {
-            dispatch(verifyOtp({ email: searchEmail, userotp: otp }, navigate));
+            dispatch(verifyOtp({ email: searchEmail, userotp: otp }, navigate,returnPage));
         }
     }
     const handleSendMail = (e) => {

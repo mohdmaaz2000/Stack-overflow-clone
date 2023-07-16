@@ -6,7 +6,7 @@ import { toast } from 'react-toastify'
 import '../ProfilePage/UserPost.css'
 import './PostComment.css'
 import Comment from './Comment'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { commentOnPost } from '../../../actions/post'
 
 const PostComment = (props) => {
@@ -15,6 +15,7 @@ const PostComment = (props) => {
     const [commentContent, setCommentContent] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const handlePostComment = (e) => {
         e.preventDefault();
         if (currentUser === null) {
@@ -22,7 +23,7 @@ const PostComment = (props) => {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
             });
-            navigate('/auth');
+            navigate(`/auth?returnPage=${location.pathname.substring(1)}`);
         }
         else if(commentContent === '')
         {

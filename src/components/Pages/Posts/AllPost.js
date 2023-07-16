@@ -34,7 +34,7 @@ const AllPost = () => {
         position: toast.POSITION.TOP_CENTER,
         theme: 'colored'
     });
-      navigate('/auth');
+      navigate('/auth?returnPage=uploadPost');
     }
     else{
       navigate('/uploadPost');

@@ -46,7 +46,7 @@ const MainHomePage = () => {
         position: toast.POSITION.TOP_CENTER,
         theme: 'colored'
       });
-      navigate('/auth')
+      navigate('/auth?returnPage=AskQuestion')
     }
     else {
       navigate('/AskQuestion');

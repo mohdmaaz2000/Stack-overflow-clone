@@ -2,7 +2,7 @@ import * as api from '../api'
 import { toast } from 'react-toastify';
 import { setCurrentUser } from "./currentUser";
 
-export const signup = (authData, navigate) => async (dispatch) => {
+export const signup = (authData, navigate,returnPage) => async (dispatch) => {
     try {
         const { data } = await api.signUp(authData);
         if (data.error === true) {
@@ -14,7 +14,7 @@ export const signup = (authData, navigate) => async (dispatch) => {
         else {
             dispatch({ type: 'AUTH', data });
             // dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
-            navigate(`/auth-verify?email=${authData.email}`);
+            navigate(`/auth-verify?email=${authData.email}&returnPage=${returnPage}`);
             toast.success("Verify your email", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
@@ -25,7 +25,7 @@ export const signup = (authData, navigate) => async (dispatch) => {
     }
 }
 
-export const login = (authData, navigate) => async (dispatch) => {
+export const login = (authData, navigate,returnPage) => async (dispatch) => {
     try {
         const { data } = await api.logIn(authData);
         if (data.error === true) {
@@ -36,7 +36,7 @@ export const login = (authData, navigate) => async (dispatch) => {
         } else {
             dispatch({ type: 'AUTH', data });
             // dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
-            navigate(`/auth-verify?email=${authData.email}`);
+            navigate(`/auth-verify?email=${authData.email}&returnPage=${returnPage}`);
             toast.success("Verify your email", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'
@@ -47,7 +47,7 @@ export const login = (authData, navigate) => async (dispatch) => {
     }
 }
 
-export const verifyOtp = (verifyData, navigate) => async (dispatch) => {
+export const verifyOtp = (verifyData, navigate,returnPage) => async (dispatch) => {
     try {
         const { data } = await api.verifyOtp(verifyData);
         if (data.error === true) {
@@ -59,7 +59,13 @@ export const verifyOtp = (verifyData, navigate) => async (dispatch) => {
         else {
             dispatch({ type: 'VERIFY_EMAIL', data });
             dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
-            navigate('/');
+            if(returnPage === null)
+            {
+                navigate('/');
+            }
+            else{
+                navigate(`/${returnPage}`);
+            }
             toast.success("Logged in Successfully", {
                 position: toast.POSITION.TOP_CENTER,
                 theme: 'colored'

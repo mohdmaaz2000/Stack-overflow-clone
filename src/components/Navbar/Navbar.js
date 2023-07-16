@@ -65,7 +65,7 @@ const Navbar = () => {
         position: toast.POSITION.TOP_CENTER,
         theme: 'colored'
       });
-      navigate('/auth');
+      navigate('/auth?returnPage=chatbot');
     }
     else {
       navigate('/chatbot');
@@ -79,7 +79,7 @@ const Navbar = () => {
         position: toast.POSITION.TOP_CENTER,
         theme: 'colored'
       });
-      navigate('/auth');
+      navigate('/auth?returnPage=post');
     }
     else {
       navigate('/post');
