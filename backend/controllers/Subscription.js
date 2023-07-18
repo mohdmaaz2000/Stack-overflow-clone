@@ -1,11 +1,12 @@
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const { validatePaymentVerification, validateWebhookSignature } = require('razorpay/dist/utils/razorpay-utils');
-
+const dotenv = require('dotenv');
 const users = require('../models/auth');
 
-const KEY_ID = 'rzp_test_6siLL0wbNBb9h4';
-const KEY_SECRET = 'bZE2tYQC3jsrhJLTmhMHguhH';
+dotenv.config();
+
+const KEY_ID = process.env.RAZORPAY_KEY_ID;
+const KEY_SECRET = process.env.RAZORPAY_KEY_SECRET;
 
 var instance = new Razorpay({ key_id: KEY_ID, key_secret: KEY_SECRET });
 
@@ -28,28 +29,27 @@ const orders = async (req, res) => {
     }
 }
 
-const updateUserData = async(plan,userId)=>
-{
+const updateUserData = async (plan, userId) => {
     let dt = new Date();
     dt.setDate(dt.getDate() + 30);
-    await users.findByIdAndUpdate(userId,{$set:{plan,expirationDate:dt}});
+    await users.findByIdAndUpdate(userId, { $set: { plan, expirationDate: dt } });
 }
 
 const verify = async (req, res) => {
 
     try {
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body.response;
-        const {plan,userId} = req.body;
+        const { plan, userId } = req.body;
         const body = razorpay_order_id + "|" + razorpay_payment_id
-        let generated_signature = crypto.createHmac('sha256',KEY_SECRET)
-        .update(body)
-        .digest('hex');
+        let generated_signature = crypto.createHmac('sha256', KEY_SECRET)
+            .update(body)
+            .digest('hex');
         if (generated_signature == razorpay_signature) {
-            updateUserData(plan,userId);
-            return res.status(200).json({message:"Subscription added"});
+            updateUserData(plan, userId);
+            return res.status(200).json({ message: "Subscription added" });
         }
-        else{
-            return res.status(401).json({error:true,message:"Payment id does not match"});
+        else {
+            return res.status(401).json({ error: true, message: "Payment id does not match" });
         }
     } catch (error) {
         console.log(error.stack);
