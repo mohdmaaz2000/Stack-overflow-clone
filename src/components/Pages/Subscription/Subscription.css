@@ -64,10 +64,20 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.4s;
 }
 
 .subscription-btn:hover {
     background-color: #0086d8;
+}
+.subscription-disable{
+    background-color: #ccc;
+    border: 1px solid #bfbebe;
+    cursor: not-allowed;
+    transition: 0.4s
+}
+.subscription-disable:hover{
+    background-color: #bfbebe;
 }
 
 /* Responsive styles */

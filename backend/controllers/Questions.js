@@ -1,16 +1,42 @@
 const mongoose = require('mongoose');
 const question = require('../models/Question');
+const users = require('../models/auth');
 
 const askQuestion = async (req, res) => {
     const questionData = req.body;
-    const postQuestion = new question({ ...questionData });
-
+    const { userId } = req.body
     try {
-        await postQuestion.save();
+        var user = await users.findById(userId)
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0);
+        let userLastQuestionDate = user.lastQuestionDate;
+        if (!userLastQuestionDate) {
+            userLastQuestionDate = currentDate;
+        }
+        userLastQuestionDate.setHours(0, 0, 0, 0);
+
+
+        if (currentDate.getTime() !== userLastQuestionDate.getTime()) {
+            user = await users.findByIdAndUpdate(userId, { $set: { questionsAskedToday: 0, lastQuestionDate: currentDate } }, { new: true });
+        }
+        if (user.plan === 'silver' && user.questionsAskedToday >= 5) {
+            return res.status(401).json({ error: true, message: "Question limit reached" });
+        }
+        else if (user.plan === 'free' && user.questionsAskedToday >= 1) {
+            return res.status(401).json({ error: true, message: "Question limit reached" });
+        }
+        uploadQuestion(questionData, userId, currentDate);
         res.status(200).json({ message: "Question posted successfully" });
     } catch (error) {
-        res.status(500).json({ error:true,message: "Internal server error"});
+        console.log(error.stack);
+        res.status(500).json({ error: true, message: "Internal server error" });
     }
+}
+
+const uploadQuestion = async (questionData, userId, currentDate) => {
+    const postQuestion = new question({ ...questionData });
+    await postQuestion.save();
+    await users.findByIdAndUpdate(userId, { $set: { lastQuestionDate: currentDate }, $inc: { questionsAskedToday: 1 } });
 }
 
 const getAllQuestion = async (req, res) => {
@@ -19,21 +45,21 @@ const getAllQuestion = async (req, res) => {
         res.status(200).json(questions);
 
     } catch (error) {
-        res.status(500).json({ error:true,message: "Internal server error"});
+        res.status(500).json({ error: true, message: "Internal server error" });
     }
 }
 
 const deleteQuestion = async (req, res) => {
     const { id: _id } = req.params;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({error:true, message: "Question not found" });
+        return res.status(404).json({ error: true, message: "Question not found" });
     }
 
     try {
         await question.findByIdAndDelete(_id);
         res.status(200).json({ message: "Deleted successfully" });
     } catch (error) {
-        res.status(500).json({ error:true,message: "Internal server error"});
+        res.status(500).json({ error: true, message: "Internal server error" });
     }
 }
 
@@ -41,14 +67,13 @@ const updateVote = async (req, res) => {
     const { id: _id } = req.params;
     const { value, userId } = req.body;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
-        return res.status(404).json({ error:true,message: "Question not found" });
+        return res.status(404).json({ error: true, message: "Question not found" });
     }
 
     try {
         const Question = await question.findById(_id);
-        if(Question === null)
-        {
-            return res.status(404).json({error:true,message:"Question deleted by the user"});
+        if (Question === null) {
+            return res.status(404).json({ error: true, message: "Question deleted by the user" });
         }
 
         var upIndex = -1;
@@ -86,7 +111,7 @@ const updateVote = async (req, res) => {
         await question.findByIdAndUpdate(_id, Question);
         res.status(200).json({ message: "Voted Successfully" });
     } catch (error) {
-        res.status(500).json({ error:true,message: "Internal server error"});
+        res.status(500).json({ error: true, message: "Internal server error" });
     }
 }
 

@@ -23,9 +23,9 @@ const Comment = (props) => {
     return (
         <li >
             {
-                commentUser?.image ?
+                commentUser?.profilePhoto ?
                     <Link to={`/users/${data?.userCommented}`}>
-                        <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${commentUser.image}`} alt="User Profile" />
+                        <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${commentUser.profilePhoto}`} alt="User Profile" />
                     </Link>
                     :
                     <div style={{ marginRight: '15px' }}>

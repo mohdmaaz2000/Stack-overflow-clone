@@ -7,6 +7,7 @@ const questionRoute = require('./routes/Question');
 const answerRoute = require('./routes/Answer');
 const chatBotRoute = require('./routes/Chatbot');
 const postRoute = require('./routes/Post');
+const subscriptionRoute = require('./routes/Subscription');
 
 const dotenv = require('dotenv');
 app.use(express.json({limit:"30mb",extended:true}));
@@ -33,6 +34,8 @@ app.use('/questions',questionRoute);
 app.use('/answer',answerRoute);
 
 app.use('/chatbot',chatBotRoute);
+
+app.use('/subscription',subscriptionRoute);
 
 
 app.listen(PORT,()=>{

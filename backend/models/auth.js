@@ -36,8 +36,36 @@ const userSchema = new Schema({
     },
     following: {
         type: [String]
+    },
+    plan:{
+        type:String,
+        enum:['free','silver','gold'],
+        default:'free'
+    },
+    expirationDate:{
+        type: Date
+    },
+    questionsAskedToday:{
+        type:Number,
+        default:0
+    },
+    lastQuestionDate:{
+        type:Date
     }
 }, { timestamps: true })
 
 const user = mongoose.model("User", userSchema);
+
+setInterval(async () => {
+    try {
+      const today = new Date();
+  
+      await user.updateMany(
+        { plan: {$in : ['silver','gold']}, expirationDate: { $lt: today } },
+        { $set: { plan: 'free' } },{new:true}
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  },  60* 60 * 1000); 
 module.exports = user;

@@ -46,3 +46,6 @@ export const deletePost = (id) => API.delete(`/posts/deletePost/${id}`);
 export const commentOnPost = (postId, commentdata) => API.patch(`/posts/comment/${postId}`, commentdata);
 export const deleteComment = (postId, commentId) => API.patch(`/posts/deleteComment/${postId}`, { commentId });
 export const likePost = (postId, userId) => API.patch(`/posts/like/${postId}`, { userLiked: userId });
+
+export const orderSubscription = (subscriptionDetals) => API.post('/subscription/orders',subscriptionDetals);
+export const verfiySubscription = (verfiyDetails) => API.post('/subscription/verify',verfiyDetails);

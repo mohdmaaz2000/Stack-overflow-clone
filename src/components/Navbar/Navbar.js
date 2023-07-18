@@ -115,9 +115,9 @@ const Navbar = () => {
           :
           <>
             {
-              currentProfile?.image ? <>
+              currentProfile?.profilePhoto ? <>
                 <Link to={`/users/${User?.result?._id}`} >
-                  <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.image}`} className='profilePic' alt='img' />
+                  <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.profilePhoto}`} className='profilePic' alt='img' />
                 </Link>
               </> :
                 <div className='nav-avatar'>

@@ -4,12 +4,12 @@ const fs = require('fs');
 
 const fetchAllUsers = async (req, res) => {
     try {
-        const data = await user.find();
-        let userData = [];
-        data.forEach(d => {
-            userData.push({ _id: d._id, name: d.name, about: d.about, joinedOn: d.joinedOn, tags: d.tags, chatbot: d.chatbot, image: d.profilePhoto,followers:d.followers,following:d.following })
-        });
-        res.status(200).json(userData);
+        const data = await user.find().select('-password');
+        // let userData = [];
+        // data.forEach(d => {
+        //     userData.push({ _id: d._id, name: d.name, about: d.about, joinedOn: d.joinedOn, tags: d.tags, chatbot: d.chatbot, image: d.profilePhoto,followers:d.followers,following:d.following, })
+        // });
+        res.status(200).json(data);
     } catch (error) {
         res.status(500).json({ error: true, message: "Internal server error" });
     }

@@ -95,7 +95,7 @@ const EditProfileForm = (props) => {
 
       <form className='edit-profile-form' onSubmit={handleImgSubmit}>
         <label htmlFor="profileImg">
-          <h3 style={{ marginBottom: '5px' }}>{currentUser?.image ? <>Edit Profile Photo</> : <>Upload Profile Photo</>}</h3>
+          <h3 style={{ marginBottom: '5px' }}>{currentUser?.profilePhoto ? <>Edit Profile Photo</> : <>Upload Profile Photo</>}</h3>
           <input type="file" name="image" id="profileImg" className='form-img' onChange={handleFileInputChange} accept=".jpg,.png,.jpeg,.svg" />
         </label>
         {
@@ -107,7 +107,7 @@ const EditProfileForm = (props) => {
           )
         }
         {
-          currentUser?.image ?
+          currentUser?.profilePhoto ?
             (<div style={{ display: 'flex' }}>
               <input type="submit" value="Edit Profile" className='user-submit-btn' style={{ marginRight: '5px' }} />
               <button type='button' className='user-submit-btn' onClick={handleDeleteProfile} style={{ marginLeft: '5px' }}>Delete Profile Photo</button>

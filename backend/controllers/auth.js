@@ -20,12 +20,7 @@ const signup = async (req, res) => {
         const hashedPass = await bcrypt.hash(password, 12);
         const otp = generateOTP();
         const newUser = await users.create({ name, email, password: hashedPass, otp });
-        // const parameter = {
-        //     to: email,
-        //     OTP: otp
-        // }
-        // await sendMail(parameter);
-        // const token = jwt.sign({ email: newUser.email, id: newUser._id }, process.env.JWT_SECRET, { expiresIn: "1hr" });
+
         return res.status(200).json({ result: newUser });
 
     } catch (error) {
@@ -46,12 +41,7 @@ const login = async (req, res) => {
         if (!compare) {
             return res.status(401).json({ error: true, message: "Enter valid credentials" });
         }
-        // const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.JWT_SECRET, { expiresIn: "1hr" });
-        // const parameter = {
-        //     to: email,
-        //     OTP: newOtp
-        // }
-        // await sendMail(parameter);
+
         return res.status(200).json({ result: existingUser });
 
     } catch (error) {
@@ -91,7 +81,7 @@ const verifyEmail = async (req, res) => {
             return res.status(401).json({error:true,message:"Otp expired"});
         }
         if (userToverify.otp === userotp) {
-            const existingUser = await user.findOneAndUpdate({ email }, { $set: { verified: true, otp: null } });
+            const existingUser = await user.findOneAndUpdate({ email }, { $set: { verified: true, otp: null } }).select('-password');
         const token = jwt.sign({ email: existingUser.email, id: existingUser._id }, process.env.JWT_SECRET, { expiresIn: "1hr" });
             return res.status(200).json({ result: existingUser, token });
         }

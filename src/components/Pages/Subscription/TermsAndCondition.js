@@ -1,8 +1,10 @@
 import React from 'react'
 import './Terms.css'
+import { Link } from 'react-router-dom'
+
 const TermsAndCondition = () => {
     return (
-        <div class="terms-container">
+        <div className="terms-container">
             <h1 className='terms-heading'>Terms and Conditions</h1>
             <p className='subscription-para'>Please read these terms and conditions carefully before subscribing to our website.</p>
             <ul className='terms-list'>
@@ -15,7 +17,7 @@ const TermsAndCondition = () => {
 
                 <li>These terms and conditions are governed by the laws </li>
             </ul>
-            <p>If you have any questions about these terms and conditions, please contact us at <a className='terms-email' href="mailto:mohdmaaz20bcs044@gmail.com">mohdmaaz20bcs044@gmail.com</a></p>
+            <p>If you have any questions about these terms and conditions, please contact us at <Link className='terms-email' to="mailto:mohdmaaz20bcs044@gmail.com">mohdmaaz20bcs044@gmail.com</Link></p>
         </div>
     )
 }

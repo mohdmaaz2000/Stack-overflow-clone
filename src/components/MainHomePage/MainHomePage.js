@@ -80,7 +80,9 @@ const MainHomePage = () => {
       <div>
         {
           questionList?.length === 0 ?
-            <h3 style={{ textAlign: 'center' }}>Loading...</h3> :
+            <h3 style={{ textAlign: 'center' }}>{ searchTerm === null ? <>Loading...</>:
+            <>0 Results found</>
+            }</h3> :
             <>
               <p>{questionList?.length} questions </p>
               <>

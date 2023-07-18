@@ -79,10 +79,10 @@ const Post = (props) => {
             <div className="post-container-content">
                 <div className="user-post-info">
                     {
-                        currentProfile?.image ?
+                        currentProfile?.profilePhoto ?
                             <>
                                 <Link to={`/users/${currentProfile._id}`}>
-                                    <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile?.image}`} alt="user profile" />
+                                    <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile?.profilePhoto}`} alt="user profile" />
                                 </Link>
                             </>
                             :

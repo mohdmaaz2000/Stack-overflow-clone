@@ -5,10 +5,19 @@ export const askQuestion = (questionData, navigate) => async (dispatch) => {
   try {
     const { data } = await api.postQuestion(questionData);
     if (data.error === true) {
-      toast.error(data.message, {
-        position: toast.POSITION.TOP_CENTER,
-        theme: 'colored'
-      });
+      if (data.message === 'Question limit reached') {
+        toast.error(data.message + " Subscribe to get more access",{
+          position:toast.POSITION.TOP_CENTER,
+          theme:'colored'
+        });
+        navigate('/subscription')
+      }
+      else {
+        toast.error(data.message, {
+          position: toast.POSITION.TOP_CENTER,
+          theme: 'colored'
+        });
+      }
     }
     else {
       dispatch({ type: "POST_QUESTION", payload: data });

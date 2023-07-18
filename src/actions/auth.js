@@ -59,7 +59,7 @@ export const verifyOtp = (verifyData, navigate,returnPage) => async (dispatch) =
         else {
             dispatch({ type: 'VERIFY_EMAIL', data });
             dispatch(setCurrentUser(JSON.parse(localStorage.getItem('Profile'))));
-            if(returnPage === null)
+            if(returnPage === null || returnPage === 'null')
             {
                 navigate('/');
             }

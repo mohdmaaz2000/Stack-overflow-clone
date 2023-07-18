@@ -88,7 +88,6 @@
 .auth-disabled {
     background-color: #ccc;
     border: 1px solid #bfbebe;
-
     cursor: not-allowed;
 }
 .auth-disabled:hover{

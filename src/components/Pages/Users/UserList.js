@@ -7,8 +7,8 @@ const UserList = (props) => {
   return (
     <Link to={`/users/${user._id}`} className='user-profile-link'>
       {
-        user.image ? <>
-            <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${user.image}`} alt="userPic" className='user-profile-link-img'/>
+        user.profilePhoto ? <>
+            <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${user.profilePhoto}`} alt="userPic" className='user-profile-link-img'/>
           </>:
         <h3>{user.name.charAt(0).toUpperCase()}</h3>
       }

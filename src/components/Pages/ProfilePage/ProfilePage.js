@@ -47,8 +47,8 @@ const ProfilePage = () => {
                 <section>
                     <div className="user-details-container">
                         <div className="user-details">
-                            {currentProfile?.image ? <>
-                                <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.image}`} alt="prifile" className='user-details-img' />
+                            {currentProfile?.profilePhoto ? <>
+                                <img src={`${process.env.REACT_APP_SERVER}/Profilephoto/${currentProfile.profilePhoto}`} alt="prifile" className='user-details-img' />
                             </> :
                                 <Avatar bgColor={'purple'} color={'white'} fSize={'50px'} px={'40px'} py={'30px'}>{currentProfile?.name?.charAt(0).toUpperCase()}
                                 </Avatar>
