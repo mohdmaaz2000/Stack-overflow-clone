@@ -1,5 +1,6 @@
 import moment from 'moment/moment';
 import React from 'react'
+import PropTypes from 'prop-types'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -8,7 +9,7 @@ import { followRequest } from '../../../actions/users';
 import Avatar from '../../Avatar/Avatar';
 
 const PeopleDetails = (props) => {
-    const { data } = props;
+    const { data,showCurrentUser } = props;
     const navigate = useNavigate();
     const currentUser = useSelector((state) => state.currentUserReducer);
     const dispatch = useDispatch();
@@ -32,10 +33,14 @@ const PeopleDetails = (props) => {
             navigate(`/users/${data?._id}`)
         }
     }
+
+    const myStyle = {
+        display: data._id === currentUser?.result?._id ? 'none':'block'
+    }
     return (
         <>
             {
-                data._id !== currentUser?.result?._id &&
+                (showCurrentUser || data._id !== currentUser?.result?._id) &&
                 <div className="people-info-container" onClick={handleRoute} >
                     <div className="people-details">
                         {
@@ -47,7 +52,7 @@ const PeopleDetails = (props) => {
                                 </div>
                         }
 
-                        <h3>{data?.name}</h3>
+                        <h3>{data._id === currentUser?.result?._id ?<>You</>:<>{data?.name}</>}</h3>
                     </div>
 
                     <div className="people-stats">
@@ -69,7 +74,7 @@ const PeopleDetails = (props) => {
                         {
                             data?.followers?.includes(currentUser?.result?._id) ?
                                 <button className="follow-button following-btn" >Following</button> :
-                                <button className="follow-button">Follow</button>
+                                <button className="follow-button" style={myStyle}>Follow</button>
                         }
                     </div>
                 </div >
@@ -77,5 +82,13 @@ const PeopleDetails = (props) => {
         </>
     )
 }
+
+PeopleDetails.propTypes = {
+    showCurrentUser: PropTypes.bool,
+  };
+
+PeopleDetails.defaultProps = {
+    showCurrentUser: false,
+  };
 
 export default PeopleDetails

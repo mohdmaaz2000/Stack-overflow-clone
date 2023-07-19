@@ -25,7 +25,7 @@ export const orderSubscription = (subscriptionDetails,currentUser,myDispatch,nav
 
 const handleOpenRazorpay = (data,subscriptionDetails,currentUser,myDispatch,navigate) =>{
     const options = {
-        key:'rzp_test_6siLL0wbNBb9h4',
+        key:process.env.REACT_APP_RAZORPAY_KEY_ID,
         amount:data?.data?.amount,
         currency:data?.data?.currency,
         name:'Stack Overflow',

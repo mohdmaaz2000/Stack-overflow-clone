@@ -14,6 +14,7 @@ const Auth = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [optin,setOptin] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -44,7 +45,7 @@ const Auth = () => {
       }
       else {
         // navigate(`/auth-verify?email=${email}`);
-        dispatch(signup({ name, email, password }, navigate,returnPage));
+        dispatch(signup({ name, email, password,optin }, navigate,returnPage));
       }
 
     }
@@ -92,7 +93,7 @@ const Auth = () => {
             isSignup &&
             (
               <label htmlFor='check' className='checkflex'>
-                <input type="checkbox" id='check' name='check' />
+                <input type="checkbox" id='check' name='check' onChange={()=>setOptin(!optin)}/>
                 <p style={{ color: '#666767', fontSize: '13px' }}>Opt-in to recieve occasional, <br />product updates, user research invitations, <br />
                   company announcement and digest</p>
               </label>

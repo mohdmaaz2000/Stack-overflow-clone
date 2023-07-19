@@ -21,6 +21,10 @@ const userSchema = new Schema({
         question: String,
         answer: String
     }],
+    optForEmail:{
+        type:Boolean,
+        default:false
+    },
     otp: {
         type: String,
     },

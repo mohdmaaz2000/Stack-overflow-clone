@@ -6,7 +6,7 @@ const generateOTP = require('./OtpConfig');
 const sendMail = require('./EmailConfig');
 
 const signup = async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password,optin} = req.body;
 
     try {
         const existingUser = await users.findOne({ email });
@@ -19,7 +19,7 @@ const signup = async (req, res) => {
         }
         const hashedPass = await bcrypt.hash(password, 12);
         const otp = generateOTP();
-        const newUser = await users.create({ name, email, password: hashedPass, otp });
+        const newUser = await users.create({ name, email, password: hashedPass, otp,optForEmail:optin});
 
         return res.status(200).json({ result: newUser });
 

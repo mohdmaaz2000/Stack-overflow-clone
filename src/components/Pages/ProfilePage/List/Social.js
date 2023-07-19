@@ -27,7 +27,7 @@ const Social = (props) => {
       {
         users?.length === 0 ? <div className='no-user'>No user found</div> :
           users?.map((user) => (
-            <PeopleDetails key={user._id} data={user} />
+            <PeopleDetails key={user._id} data={user} showCurrentUser={true}/>
           ))
       }
 
