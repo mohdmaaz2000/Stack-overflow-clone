@@ -205,6 +205,9 @@
         left: 8px;
         top: 29px;
     }
+    .follow-button {
+        font-size: 10px;
+    }
 }
 
 @media only screen and (max-width: 380px) {
@@ -219,10 +222,6 @@
     }
 
     .people-stats p {
-        font-size: 10px;
-    }
-
-    .follow-button {
         font-size: 10px;
     }
 }

@@ -170,6 +170,15 @@
   }
 }
 
+@media screen and (max-width: 1024px){
+  .chatbot-messages{
+    height: 78%;
+  }
+  .chatbot-container{
+    height: 91vh;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .chatbot-input input[type=text] {
     width: 80%;
