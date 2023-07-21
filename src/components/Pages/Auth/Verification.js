@@ -71,7 +71,7 @@ const Verification = () => {
                         otpSend === true ? <> <p style={{marginBottom:'0px',marginTop:'25px'}}>Resend the otp in {time} seconds</p>
                             <button className={`auth-btn ${disablebtn ? 'auth-disabled' : ''}`} onClick={handleSendMail}>Resend otp</button>
                         </> : <>
-                            <p style={{ marginBottom: '0px', marginTop: '24px' }}>Send a verification code to {searchEmail}</p>
+                            <p style={{ marginBottom: '0px', marginTop: '24px' }}>Send a verification code to </p><p style={{marginTop:'0px'}}>{searchEmail}</p>
                             <button className={`auth-btn ${clicked ? 'auth-disabled' : ''}`} onClick={handleSendMail} >Send otp</button>
                         </>
                     }
